@@ -1,8 +1,8 @@
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/EMMAapp.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/EMMA.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/edit_cache.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/rebuild_cache.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/list_install_components.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/install.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/install/local.dir
-/data1/cangus/Geant4/G4EMMA/CMakeFiles/install/strip.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/EMMAapp.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/EMMA.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/edit_cache.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/rebuild_cache.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/list_install_components.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/install.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/install/local.dir
+/Users/mikeqiu/GEANT4/G4EMMA/CMakeFiles/install/strip.dir

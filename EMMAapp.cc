@@ -299,8 +299,9 @@ int main(int argc,char** argv)
 //#endif
 //#ifdef G4UI_USE
   G4UIExecutive* ui = new G4UIExecutive(argc, argv);
-  //UImanager->ApplyCommand("/control/execute visEMMA.mac");
+  UImanager->ApplyCommand("/control/execute visEMMA.mac");
   //UImanager->ApplyCommand("/control/execute macros/BeamSetup.mac");
+  // UImanager->ApplyCommand("/control/execute auto_vis_run.mac");
   ui->SessionStart();
   delete ui;
 //#endif

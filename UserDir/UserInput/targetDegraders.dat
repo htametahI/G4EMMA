@@ -1,21 +1,16 @@
 # TARGET
 IN                 # IN/OUT
-2.6                # thickness (um)
+6.0661318          # thickness (um)
 0                  # target z position offset (cm)
-1.588               # density (g/cm3)
-3                  # number of elements
-2 4.00726 0.027       # element 1: Z, M (g/mol), mass fraction
-14 27.977 0.864	   # element 2: Z, M (g/mol), mass fraction
-8 15.995 0.109	   # element 2: Z, M (g/mol), mass fraction
-# DEGRADER 1
+0.8226             # density (g/cm3)
+2                  # number of elements
+3 6.94 0.267       # element 1: Z, M (g/mol), mass fraction
+8 18.998 0.7324	   # element 2: Z, M (g/mol), mass fraction
+
+# DEGRADER 1 (Carbon Backing)
 IN                 # IN/OUT
-4.45                # thickness (um)
-19.32              # density (g/cm3)
+0.225                 # thickness (um)
+2.26              # density (g/cm3)
 1                  # number of elements
-79 196.96655 1     # element 1: Z, M (g/mol), weight ratio
-# DEGRADER 2
-OUT                 # IN/OUT
-8.0                # thickness (um)
-2.7              # density (g/cm3)
-1                  # number of elements
-13 26.98 1     # element 1: Z, M (g/mol), weight ratio
+6 12 1     # element 1: Z, M (g/mol), weight ratio
+

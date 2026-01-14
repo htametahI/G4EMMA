@@ -13,7 +13,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#include "/data1/cangus/Geant4/G4EMMA/include/f2c.h"
+#include "/Users/mikeqiu/GEANT4/G4EMMA/f2c/f2c.h"
 
 
 /* Common Block Declarations */

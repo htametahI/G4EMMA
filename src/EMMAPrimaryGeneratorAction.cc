@@ -316,15 +316,15 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   userCharge = fCharge3; //read in from reaction.dat in EMMAapp
   std::ofstream outfile; 
   focalPlaneFileName = UserDir;
-  focalPlaneFileName.append("/Results/fp_reaction.dat"); //Used in EMMADriftChamberHit
+  focalPlaneFileName.append("/ExcitationEnergy/fp_reaction_6MeV.dat"); //Used in EMMADriftChamberHit
   outfile.open (focalPlaneFileName);
   outfile.close();
   postTargetFileName = UserDir;
-  postTargetFileName.append("/Results/postTarget_reaction.dat"); //Used in EMMASteppingAction
+  postTargetFileName.append("/ExcitationEnergy/postTarget_reaction_6MeV.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
   outfile.close();
   postDegrader1FileName = UserDir;
-  postDegrader1FileName.append("/Results/postDegrader1_reaction.dat"); //Used in EMMASteppingAction
+  postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_reaction_6MeV.dat"); //Used in EMMASteppingAction
   outfile.open (postDegrader1FileName);
   outfile.close();
 
@@ -353,7 +353,6 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
 }
 
 
-
 void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /mydet/doBeam
 {
   prepareBeam = false;
@@ -361,15 +360,15 @@ void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /myd
   userCharge = beamCharge; //read in from beam.dat in EMMAapp
   std::ofstream outfile;
   focalPlaneFileName = UserDir;
-  focalPlaneFileName.append("/Results/fp_beam.dat"); //Used in EMMADriftChamberHit
+  focalPlaneFileName.append("/ExcitationEnergy/fp_beam_6MeV.dat"); //Used in EMMADriftChamberHit
   outfile.open (focalPlaneFileName);
   outfile.close();	  
   postTargetFileName = UserDir;
-  postTargetFileName.append("/Results/postTarget_beam.dat"); //Used in EMMASteppingAction
+  postTargetFileName.append("/ExcitationEnergy/postTarget_beam_6MeV.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
   outfile.close();
   postDegrader1FileName = UserDir;
-  postDegrader1FileName.append("/Results/postDegrader1_beam.dat"); //Used in EMMASteppingAction
+  postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_beam_6MeV.dat"); //Used in EMMASteppingAction
   outfile.open (postDegrader1FileName);
   outfile.close();
 

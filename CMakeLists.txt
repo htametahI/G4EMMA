@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------
 # Setup the project
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 project(EMMA)
 
 #----------------------------------------------------------------------------
@@ -35,8 +35,7 @@ endif()
 #
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include 
                     ${Geant4_INCLUDE_DIR}
-                    ${ROOT_INCLUDE_DIR}
-                    ${CMAKE_CURRENT_SOURCE_DIR}/../../root/install/include)
+                    ${ROOT_INCLUDE_DIRS})
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
@@ -44,7 +43,7 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 # Add the executable, and link it to the Geant4 libraries
 #
 
-set(F2C_LIBRARIES /data1/cangus/Geant4/G4EMMA/f2c/lib/libf2c.a)
+set(F2C_LIBRARIES /Users/mikeqiu/GEANT4/G4EMMA/f2c/lib/libf2c.a)
 add_executable(EMMAapp EMMAapp.cc ${sources} ${headers})
 target_link_libraries(EMMAapp ${Geant4_LIBRARIES} ${ROOT_LIBRARIES} 
 ${F2C_LIBRARIES} )

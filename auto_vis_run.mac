@@ -1,0 +1,35 @@
+# ---- Auto show EMMA setup + rays ----
+/control/verbose 1
+
+# If your experiment tune is in BeamSetup.mac, enable it:
+/control/execute BeamSetup.mac
+
+/run/initialize
+
+# ---- VIS: open viewer + draw geometry ----
+/vis/open OGLSQt 1200x800+50+50
+/vis/viewer/set/autoRefresh false
+/vis/drawVolume
+
+# Nice defaults
+/vis/viewer/set/style wireframe
+/vis/viewer/set/viewpointThetaPhi 90 89
+/vis/viewer/panTo 0 0
+/vis/viewer/zoom 2
+/vis/scene/add/axes 0 0 0 1 m
+
+# ---- RAYS/TRACKS: must store trajectories BEFORE beamOn ----
+/tracking/storeTrajectory 1
+/vis/scene/add/trajectories smooth
+/vis/modeling/trajectories/create/drawByCharge
+
+# Show multiple events at once (good for “rays” look)
+#/vis/scene/endOfEventAction refresh
+/vis/scene/endOfEventAction accumulate
+
+/vis/viewer/set/autoRefresh true
+
+# Run a few events so rays appear
+/run/beamOn 20
+
+/vis/viewer/flush
