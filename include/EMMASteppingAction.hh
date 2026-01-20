@@ -30,6 +30,8 @@
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
+
+// Edit by Mike-Yizhu Qiu Jan 2026, saving ejectiles
 #ifndef EMMASteppingAction_h
 #define EMMASteppingAction_h 1
 
@@ -57,8 +59,16 @@ extern G4double targetThickness;
 extern G4bool prepareBeam;
 extern G4String inTargetFileName;
 extern G4String postTargetFileName;
+extern G4String postTargetEjectileFileName;
 extern G4String postDegrader1FileName;
 extern G4double depth;
+// Ejectiles
+extern G4double ejectileEnergy;
+extern G4double ejectileDirX;
+extern G4double ejectileDirY;
+extern G4double ejectileDirZ;
+extern G4int ejectileZ;
+extern G4int ejectileA;
 
 // Global variables from EMMAapp.cc
 extern G4int NOHslits1;

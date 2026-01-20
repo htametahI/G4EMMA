@@ -208,6 +208,34 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
           << phi/deg 
           << G4endl;
 	outfile.close();
+                if (!postTargetEjectileFileName.empty() && theTrack->GetParentID() == 0) {
+          G4double ejectileDirN = std::sqrt(ejectileDirX*ejectileDirX
+                                            + ejectileDirY*ejectileDirY
+                                            + ejectileDirZ*ejectileDirZ);
+          G4double ejectileTheta = 0.;
+          G4double ejectilePhi = 0.;
+          if (ejectileDirN > 0.) {
+            ejectileTheta = std::acos(ejectileDirZ / ejectileDirN);
+            ejectilePhi = std::atan2(ejectileDirY, ejectileDirX);
+          }
+          G4bool recoilForward = MomentumDirection[2] > 0.;
+          std::ofstream ejectileFile(postTargetEjectileFileName, std::ios::app);
+          ejectileFile.precision(17);
+          ejectileFile << evnt << ", "
+                       << theParticle->GetDefinition()->GetAtomicNumber() << ", "
+                       << theParticle->GetDefinition()->GetAtomicMass() << ", "
+                       << theKineticEnergy/MeV << ", "
+                       << theta/deg << ", "
+                       << phi/deg << ", "
+                       << ejectileZ << ", "
+                       << ejectileA << ", "
+                       << ejectileEnergy/MeV << ", "
+                       << ejectileTheta/deg << ", "
+                       << ejectilePhi/deg << ", "
+                       << (recoilForward ? 1 : 0)
+                       << G4endl;
+          ejectileFile.close();
+        }
       }
     }
     //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//

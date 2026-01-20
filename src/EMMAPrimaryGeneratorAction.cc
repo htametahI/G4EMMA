@@ -69,6 +69,14 @@ G4String focalPlaneFileName;
 G4double userCharge = 54.; // default value
 G4String postDegrader1FileName;
 G4double depth;
+// Ejectiles 
+G4String postTargetEjectileFileName;
+G4double ejectileEnergy = 0.;
+G4double ejectileDirX = 0.;
+G4double ejectileDirY = 0.;
+G4double ejectileDirZ = 0.;
+G4int ejectileZ = 0;
+G4int ejectileA = 0;
 
 EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 {
@@ -323,6 +331,12 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   postTargetFileName.append("/ExcitationEnergy/postTarget_reaction.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
   outfile.close();
+  // Ejectiles
+  postTargetEjectileFileName = UserDir;
+  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_ejectile.dat");
+  outfile.open(postTargetEjectileFileName);
+  outfile.close();
+
   postDegrader1FileName = UserDir;
   postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_reaction.dat"); //Used in EMMASteppingAction
   outfile.open (postDegrader1FileName);
@@ -363,6 +377,7 @@ void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /myd
   focalPlaneFileName.append("/ExcitationEnergy/fp_beam.dat"); //Used in EMMADriftChamberHit
   outfile.open (focalPlaneFileName);
   outfile.close();	  
+  postTargetEjectileFileName = "";
   postTargetFileName = UserDir;
   postTargetFileName.append("/ExcitationEnergy/postTarget_beam.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
@@ -386,6 +401,7 @@ void EMMAPrimaryGeneratorAction::initializeBeamPreparation() // called using /my
   std::ofstream outfile; 
   outfile.open (inTargetFileName); //declared in constructor
   outfile.close();
+  postTargetEjectileFileName = "";
 
   // simulated nEvents
   G4RunManager::GetRunManager()->BeamOn(nEvents);
@@ -478,5 +494,20 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
   dir[0] = lv3[0];
   dir[1] = lv3[1];
   dir[2] = lv3[2];
+
+    // Store ejectile (product #4) kinematics for logging at target exit.
+  ejectileEnergy = lv4[3] - m4;
+  G4double ejectileP = std::sqrt(lv4[0]*lv4[0] + lv4[1]*lv4[1] + lv4[2]*lv4[2]);
+  if (ejectileP > 0.) {
+    ejectileDirX = lv4[0] / ejectileP;
+    ejectileDirY = lv4[1] / ejectileP;
+    ejectileDirZ = lv4[2] / ejectileP;
+  } else {
+    ejectileDirX = 0.;
+    ejectileDirY = 0.;
+    ejectileDirZ = 0.;
+  }
+  ejectileZ = Z4;
+  ejectileA = A4;
 
 }
