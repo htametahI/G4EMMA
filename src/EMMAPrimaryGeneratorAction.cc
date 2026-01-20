@@ -316,15 +316,15 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   userCharge = fCharge3; //read in from reaction.dat in EMMAapp
   std::ofstream outfile; 
   focalPlaneFileName = UserDir;
-  focalPlaneFileName.append("/ExcitationEnergy/fp_reaction_6MeV.dat"); //Used in EMMADriftChamberHit
+  focalPlaneFileName.append("/ExcitationEnergy/fp_reaction.dat"); //Used in EMMADriftChamberHit
   outfile.open (focalPlaneFileName);
   outfile.close();
   postTargetFileName = UserDir;
-  postTargetFileName.append("/ExcitationEnergy/postTarget_reaction_6MeV.dat"); //Used in EMMASteppingAction
+  postTargetFileName.append("/ExcitationEnergy/postTarget_reaction.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
   outfile.close();
   postDegrader1FileName = UserDir;
-  postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_reaction_6MeV.dat"); //Used in EMMASteppingAction
+  postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_reaction.dat"); //Used in EMMASteppingAction
   outfile.open (postDegrader1FileName);
   outfile.close();
 
@@ -360,15 +360,15 @@ void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /myd
   userCharge = beamCharge; //read in from beam.dat in EMMAapp
   std::ofstream outfile;
   focalPlaneFileName = UserDir;
-  focalPlaneFileName.append("/ExcitationEnergy/fp_beam_6MeV.dat"); //Used in EMMADriftChamberHit
+  focalPlaneFileName.append("/ExcitationEnergy/fp_beam.dat"); //Used in EMMADriftChamberHit
   outfile.open (focalPlaneFileName);
   outfile.close();	  
   postTargetFileName = UserDir;
-  postTargetFileName.append("/ExcitationEnergy/postTarget_beam_6MeV.dat"); //Used in EMMASteppingAction
+  postTargetFileName.append("/ExcitationEnergy/postTarget_beam.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
   outfile.close();
   postDegrader1FileName = UserDir;
-  postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_beam_6MeV.dat"); //Used in EMMASteppingAction
+  postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_beam.dat"); //Used in EMMASteppingAction
   outfile.open (postDegrader1FileName);
   outfile.close();
 
@@ -464,10 +464,12 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
   G4ThreeVector v4 = -v3;
   G4LorentzVector lv3(v3.x(),v3.y(),v3.z(),e3);
   G4LorentzVector lv4(v4.x(),v4.y(),v4.z(),e4);
+
   
   // Transform to LAB frame
   lv3.boost(bst);
   lv4.boost(bst);
+  
     
   // Kinetic energy in lab of product #3
   Ebeam = lv3[3] - m3;

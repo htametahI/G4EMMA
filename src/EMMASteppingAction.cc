@@ -196,10 +196,17 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
 			      + MomentumDirection[1]*MomentumDirection[1]
 			      + MomentumDirection[2]*MomentumDirection[2]);
 	G4double theta = std::acos( MomentumDirection[2]/dirn );
+  // Edits by MQ: writes momentum direction to file ux, uy, uz and theta, phi 
+  // auto momDir = postStepPoint->GetMomentumDirection(); // unit vector at target exit
+  // G4double theta_m = std::acos(momDir.z());              // polar angle to +z (radians)
+  G4double phi   = std::atan2(MomentumDirection[1] , MomentumDirection[0]); // azimuth about +z (radians)
 	std::ofstream outfile(postTargetFileName, std::ios::app); //Declared in EMMAPrimaryGeneratorAction
 	outfile.precision(17);
-	outfile << theKineticEnergy/MeV << ", " << theta/deg << ", "
-		<< worldPosition2[0] << ", " << worldPosition2[1] << G4endl;
+	outfile << theKineticEnergy/MeV << ", " 
+          << theta/deg << ", "
+          << MomentumDirection[0]  << ", " << MomentumDirection[1]  << ", " <<  MomentumDirection[2]  << ","
+          << phi/deg 
+          << G4endl;
 	outfile.close();
       }
     }
