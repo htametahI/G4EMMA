@@ -69,6 +69,8 @@ extern G4double ejectileDirY;
 extern G4double ejectileDirZ;
 extern G4int ejectileZ;
 extern G4int ejectileA;
+extern G4double recoilThetaCM;
+extern G4double ejectileThetaCM;
 
 // Global variables from EMMAapp.cc
 extern G4int NOHslits1;

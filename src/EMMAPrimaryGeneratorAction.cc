@@ -77,6 +77,8 @@ G4double ejectileDirY = 0.;
 G4double ejectileDirZ = 0.;
 G4int ejectileZ = 0;
 G4int ejectileA = 0;
+G4double recoilThetaCM = 0.;
+G4double ejectileThetaCM = 0.;
 
 EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 {
@@ -509,5 +511,7 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
   }
   ejectileZ = Z4;
   ejectileA = A4;
+  recoilThetaCM = std::acos(cost);
+  ejectileThetaCM = CLHEP::pi - recoilThetaCM;
 
 }
