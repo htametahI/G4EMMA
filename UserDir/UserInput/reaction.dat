@@ -8,7 +8,7 @@
 1        # Z4 ejectile
 3        # A4
 0.0      # min c.m. angle
-180.0    # max c.m. angle
+180      # max c.m. angle
 12       # charge state of recoil
 0        # excitation energy of recoil
 7        # solid-angle averaged cross section (mb/sr) inside the angular range specified above
