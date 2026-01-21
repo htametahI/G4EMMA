@@ -49,7 +49,6 @@
 #include "G4NucleiProperties.hh"
 
 #include "G4RunManager.hh"
-#include "G4EventManager.hh"
 #include "G4LogicalVolumeStore.hh"
 #include "G4LogicalVolume.hh"
 #include "G4VSolid.hh"
@@ -336,7 +335,7 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   outfile.close();
   // Ejectiles
   postTargetEjectileFileName = UserDir;
-  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_ejectile_4MeV.dat");
+  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_ejectile_0MeV.dat");
   outfile.open(postTargetEjectileFileName);
   outfile.close();
 

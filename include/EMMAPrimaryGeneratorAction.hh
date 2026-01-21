@@ -130,7 +130,7 @@ public:
   void energyDistributionInit(G4String fileName);
   G4double energyDistribution();
 
-  G4bool simulateTwoBodyReaction( G4double &Ebeam, G4ThreeVector &dir);
+  void simulateTwoBodyReaction( G4double &Ebeam, G4ThreeVector &dir);
 
   /*
   void SetTheta(G4double val) {Theta = val;}
