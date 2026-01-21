@@ -49,6 +49,7 @@
 #include "G4NucleiProperties.hh"
 
 #include "G4RunManager.hh"
+#include "G4EventManager.hh"
 #include "G4LogicalVolumeStore.hh"
 #include "G4LogicalVolume.hh"
 #include "G4VSolid.hh"
