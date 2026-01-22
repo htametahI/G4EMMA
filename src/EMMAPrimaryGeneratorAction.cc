@@ -335,7 +335,7 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   outfile.close();
   // Ejectiles
   postTargetEjectileFileName = UserDir;
-  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_ejectile_0MeV.dat");
+  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_ejectile_8MeV.dat");
   outfile.open(postTargetEjectileFileName);
   outfile.close();
 
