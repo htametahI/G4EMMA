@@ -57,8 +57,20 @@
 #include <string> //words and sentences
 #include <fstream> //Stream class to both read and write from/to files
 #include <sstream>
+#include <cmath>
 using namespace std;
 
+namespace {
+bool IsFinite(G4double value)
+{
+  return std::isfinite(value);
+}
+
+bool IsFiniteVector(const G4ThreeVector& vec)
+{
+  return std::isfinite(vec.x()) && std::isfinite(vec.y()) && std::isfinite(vec.z());
+}
+}
 
 
 // global variables 
@@ -79,6 +91,10 @@ G4int ejectileZ = 0;
 G4int ejectileA = 0;
 G4double recoilThetaCM = 0.;
 G4double ejectileThetaCM = 0.;
+// Triton Gate: 
+G4bool applyTritonLabAngleGate = true;
+G4double tritonLabAngleMinDeg = 132.32;
+G4double tritonLabAngleMaxDeg = 133.21;
 
 EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 {
@@ -298,10 +314,29 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     
   }
   
-  
+  // Edit by MQ: guarding against exceptions
   particleGun->GeneratePrimaryVertex(anEvent);
   
-  
+    if (!IsFinite(Ekin) || Ekin < 0.0) {
+    std::ostringstream msg;
+    msg << "Invalid kinetic energy for primary. Ekin=" << Ekin
+        << " (event " << anEvent->GetEventID() << ")";
+    G4Exception("EMMAPrimaryGeneratorAction::GeneratePrimaries", "EMMA0001",
+                EventMustBeAborted, msg.str().c_str());
+    return;
+  }
+
+  G4ThreeVector direction = particleGun->GetParticleMomentumDirection();
+  if (!IsFiniteVector(direction) || direction.mag2() <= 0.0) {
+    std::ostringstream msg;
+    msg << "Invalid momentum direction for primary. dir=(" << direction.x()
+        << "," << direction.y() << "," << direction.z() << ")"
+        << " (event " << anEvent->GetEventID() << ")";
+    G4Exception("EMMAPrimaryGeneratorAction::GeneratePrimaries", "EMMA0002",
+                EventMustBeAborted, msg.str().c_str());
+    return;
+  }
+
   // Print info:
   G4bool printInfo=false;
   G4double mass = particleDef->GetPDGMass();
@@ -335,7 +370,8 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   outfile.close();
   // Ejectiles
   postTargetEjectileFileName = UserDir;
-  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_ejectile_8MeV.dat");
+
+  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_S3Gate.dat");
   outfile.open(postTargetEjectileFileName);
   outfile.close();
 
@@ -413,6 +449,15 @@ void EMMAPrimaryGeneratorAction::initializeBeamPreparation() // called using /my
 void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4ThreeVector &dir )
 {
 
+  // EDIT 
+  if (!IsFinite(Ebeam) || Ebeam < 0.0 || !IsFiniteVector(dir) || dir.mag2() <= 0.0) {
+    std::ostringstream msg;
+    msg << "Invalid beam energy or direction before reaction. Ebeam=" << Ebeam
+        << " dir=(" << dir.x() << "," << dir.y() << "," << dir.z() << ")";
+    G4Exception("EMMAPrimaryGeneratorAction::simulateTwoBodyReaction", "EMMA0003",
+                EventMustBeAborted, msg.str().c_str());
+    return;
+  }
   // Z and A of projectile and target (1+2):
   G4int Z1 = fZ1;
   G4int A1 = fA1;
@@ -440,6 +485,14 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
   G4double p1n = sqrt( (m1+Ebeam)*(m1+Ebeam) - m1*m1 );
   G4double dirn = sqrt( dir[0]*dir[0] + dir[1]*dir[1] + dir[2]*dir[2] );
   G4ThreeVector p1 = dir/dirn*p1n;
+  // EDIT
+  if (!IsFinite(p1n) || p1n < 0.0 || dirn <= 0.0 || !IsFinite(dirn)) {
+    std::ostringstream msg;
+    msg << "Invalid beam momentum values. p1n=" << p1n << " dirn=" << dirn;
+    G4Exception("EMMAPrimaryGeneratorAction::simulateTwoBodyReaction", "EMMA0004",
+                EventMustBeAborted, msg.str().c_str());
+    return;
+  }
 
   // determine velocity of CM frame relative to LAB frame
   G4LorentzVector lv1(p1,m1+Ebeam);
@@ -454,13 +507,29 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
 
   // if energy is insufficient, nothing happens
   if (etot<m3+m4) {
-    G4cout << "NOT ENOUGH ENERGY FOR REACTION" << G4endl;
+    // G4cout << "NOT ENOUGH ENERGY FOR REACTION" << G4endl;
+    // edit: 
+    std::ostringstream msg;
+    msg << "Not enough energy for reaction. etot=" << etot
+        << " m3+m4=" << (m3 + m4);
+    G4Exception("EMMAPrimaryGeneratorAction::simulateTwoBodyReaction", "EMMA0005",
+                EventMustBeAborted, msg.str().c_str());
+    return;
   }
 
   // Compute c.m. energies and momentum of reaction products (3+4)
   G4double e3 = ( etot*etot + m3*m3 - m4*m4 ) / (2*etot); 
   G4double e4 = etot - e3; 
   G4double pcm = sqrt( e3*e3 - m3*m3 ); 
+  // edit: 
+    if (!IsFinite(e3) || !IsFinite(e4) || !IsFinite(pcm) || pcm < 0.0) {
+    std::ostringstream msg;
+    msg << "Invalid CM energy or momentum. e3=" << e3 << " e4=" << e4
+        << " pcm=" << pcm;
+    G4Exception("EMMAPrimaryGeneratorAction::simulateTwoBodyReaction", "EMMA0006",
+                EventMustBeAborted, msg.str().c_str());
+    return;
+  }
 
   // Max and min angles
   G4double fqrmax = (180-fqmin/deg)*deg; //compute recoil c.m. angles from ejectile c.m. angles
@@ -497,13 +566,38 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
   dir[1] = lv3[1];
   dir[2] = lv3[2];
 
+  // edit: 
+    if (!IsFinite(Ebeam) || !IsFiniteVector(dir) || dir.mag2() <= 0.0) {
+    std::ostringstream msg;
+    msg << "Invalid reaction product kinematics. Ebeam=" << Ebeam
+        << " dir=(" << dir.x() << "," << dir.y() << "," << dir.z() << ")";
+    G4Exception("EMMAPrimaryGeneratorAction::simulateTwoBodyReaction", "EMMA0007",
+                EventMustBeAborted, msg.str().c_str());
+    return;
+  }
+
     // Store ejectile (product #4) kinematics for logging at target exit.
   ejectileEnergy = lv4[3] - m4;
   G4double ejectileP = std::sqrt(lv4[0]*lv4[0] + lv4[1]*lv4[1] + lv4[2]*lv4[2]);
-  if (ejectileP > 0.) {
+  if (IsFinite(ejectileP) && ejectileP > 0.) {
     ejectileDirX = lv4[0] / ejectileP;
     ejectileDirY = lv4[1] / ejectileP;
     ejectileDirZ = lv4[2] / ejectileP;
+
+    // Triton Gate: 
+    if (applyTritonLabAngleGate) {
+      G4double thetaLabDeg = std::acos(ejectileDirZ) * 180.0 / CLHEP::pi;
+      if (!IsFinite(thetaLabDeg) || thetaLabDeg < tritonLabAngleMinDeg
+          || thetaLabDeg > tritonLabAngleMaxDeg) {
+        std::ostringstream msg;
+        msg << "Triton lab angle out of range. thetaLab=" << thetaLabDeg
+            << " deg (gate " << tritonLabAngleMinDeg << " to "
+            << tritonLabAngleMaxDeg << " deg)";
+        G4Exception("EMMAPrimaryGeneratorAction::simulateTwoBodyReaction",
+                    "EMMA0008", EventMustBeAborted, msg.str().c_str());
+        return;
+      }
+    }
   } else {
     ejectileDirX = 0.;
     ejectileDirY = 0.;

@@ -222,18 +222,18 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
           std::ofstream ejectileFile(postTargetEjectileFileName, std::ios::app);
           ejectileFile.precision(17);
           ejectileFile 
-                       << theParticle->GetDefinition()->GetAtomicNumber() << ", "
-                       << theParticle->GetDefinition()->GetAtomicMass() << ", "
-                       << theKineticEnergy/MeV << ", "
-                       << theta/deg << ", "
-                       << phi/deg << ", "
-                       << recoilThetaCM/deg << ", "
-                       << ejectileZ << ", "
-                       << ejectileA << ", "
-                       << ejectileEnergy/MeV << ", "
-                       << ejectileTheta/deg << ", "
-                       << ejectilePhi/deg << ", "
-                       << ejectileThetaCM/deg << ", "
+                       << theParticle->GetDefinition()->GetAtomicNumber() << ","
+                       << theParticle->GetDefinition()->GetAtomicMass() << ","
+                       << theKineticEnergy/MeV << ","
+                       << theta/deg << ","
+                       << phi/deg << ","
+                       << recoilThetaCM/deg << ","
+                       << ejectileZ << ","
+                       << ejectileA << ","
+                       << ejectileEnergy/MeV << ","
+                       << ejectileTheta/deg << ","
+                       << ejectilePhi/deg << ","
+                       << ejectileThetaCM/deg << ","
                        << (recoilForward ? 1 : 0)
                        << G4endl;
           ejectileFile.close();
