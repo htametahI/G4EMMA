@@ -371,7 +371,7 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   // Ejectiles
   postTargetEjectileFileName = UserDir;
 
-  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_S3GateTest.dat");
+  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_S3GateTest2.dat");
   outfile.open(postTargetEjectileFileName);
   outfile.close();
 

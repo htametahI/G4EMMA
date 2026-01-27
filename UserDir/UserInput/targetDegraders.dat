@@ -12,5 +12,5 @@ IN                 # IN/OUT
 0.225                 # thickness (um)
 2.26              # density (g/cm3)
 1                  # number of elements
-6 12 1     # element 1: Z, M (g/mol), weight ratio
+6 12 1       # element 1: Z, M (g/mol), weight ratio
 

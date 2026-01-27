@@ -208,12 +208,33 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
           << phi/deg 
           << G4endl;
 	outfile.close();
-                if (!postTargetEjectileFileName.empty() && theTrack->GetParentID() == 0) {
+                
+      }
+    }
+    //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+  }
+
+
+  //......................................................................//
+  // Writes energies and angles just after (optional) degrader
+   
+  if (name=="degrader1Logical") {
+    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
+    G4TouchableHandle theTouchable2 = postStepPoint->GetTouchableHandle();
+    G4ThreeVector worldPosition2 = postStepPoint->GetPosition();
+    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
+    if (!prepareBeam && name2!=name) {
+      G4double dirn = sqrt( MomentumDirection[0]*MomentumDirection[0] 
+			    + MomentumDirection[1]*MomentumDirection[1]
+			    + MomentumDirection[2]*MomentumDirection[2]);
+      G4double theta = std::acos( MomentumDirection[2]/dirn );
+      if (!postTargetEjectileFileName.empty() && theTrack->GetParentID() == 0) {
           G4double ejectileDirN = std::sqrt(ejectileDirX*ejectileDirX
                                             + ejectileDirY*ejectileDirY
-                                            + ejectileDirZ*ejectileDirZ);
+                                            + ejectileDirZ*ejectileDirZ);     
           G4double ejectileTheta = 0.;
           G4double ejectilePhi = 0.;
+          G4double phi   = std::atan2(MomentumDirection[1] , MomentumDirection[0]); // azimuth about +z (radians)
           if (ejectileDirN > 0.) {
             ejectileTheta = std::acos(ejectileDirZ / ejectileDirN);
             ejectilePhi = std::atan2(ejectileDirY, ejectileDirX);
@@ -238,31 +259,11 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
                        << G4endl;
           ejectileFile.close();
         }
-      }
     }
-    //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>//
+    if (name=="degrader1Logical" || name=="degrader2Logical") {
+    theTrack->SetTrackStatus(fStopAndKill);
+    return;
   }
-
-
-  //......................................................................//
-  // Writes energies and angles just after (optional) degrader
-   
-  if (name=="degrader1Logical") {
-    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
-    G4TouchableHandle theTouchable2 = postStepPoint->GetTouchableHandle();
-    G4ThreeVector worldPosition2 = postStepPoint->GetPosition();
-    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
-    if (!prepareBeam && name2!=name) {
-      G4double dirn = sqrt( MomentumDirection[0]*MomentumDirection[0] 
-			    + MomentumDirection[1]*MomentumDirection[1]
-			    + MomentumDirection[2]*MomentumDirection[2]);
-      G4double theta = std::acos( MomentumDirection[2]/dirn );
-      std::ofstream outfile(postDegrader1FileName, std::ios::app); //Declared in EMMAPrimaryGeneratorAction
-      outfile.precision(17);
-      outfile << theKineticEnergy/MeV << ", " << theta/deg << ", "
-	      << worldPosition2[0] << ", " << worldPosition2[1] << G4endl;
-      outfile.close();
-    }
   }
   //......................................................................//
 
