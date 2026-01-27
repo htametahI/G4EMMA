@@ -220,8 +220,8 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
    
   if (name=="degrader1Logical") {
     G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
-    G4TouchableHandle theTouchable2 = postStepPoint->GetTouchableHandle();
-    G4ThreeVector worldPosition2 = postStepPoint->GetPosition();
+    // G4TouchableHandle theTouchable2 = postStepPoint->GetTouchableHandle();
+    // G4ThreeVector worldPosition2 = postStepPoint->GetPosition();
     G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
     if (!prepareBeam && name2!=name) {
       G4double dirn = sqrt( MomentumDirection[0]*MomentumDirection[0] 
@@ -260,10 +260,18 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
           ejectileFile.close();
         }
     }
-    if (name=="degrader1Logical" || name=="degrader2Logical") {
-    theTrack->SetTrackStatus(fStopAndKill);
-    return;
+    if (name2!=name) {
+      theTrack->SetTrackStatus(fStopAndKill);
+      return;
+    }
   }
+  if (name=="degrader2Logical") {
+    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
+    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
+    if (name2!=name) {
+      theTrack->SetTrackStatus(fStopAndKill);
+      return;
+    }
   }
   //......................................................................//
 
