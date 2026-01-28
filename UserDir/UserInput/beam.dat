@@ -3,8 +3,8 @@
 22    # beam A
 10     # beam charge state Q
 66    # beam kinetic energy (MeV)
-0.01    # fractional energy spread (Sigma %)
-1.0    # beam-spot diameter (mm)
-0.2    # normalized transverse emittance (pi mm mrad)
-#GAUS   # source of energy data (either SPEC from user-defined spectrum or GAUS for gaussian)
+0.2    # fractional energy spread (Sigma %) 0.01
+1.0    # beam-spot diameter (mm) 1.0
+0.2    # normalized transverse emittance (pi mm mrad) 0.2
+GAUS   # source of energy data (either SPEC from user-defined spectrum or GAUS for gaussian)
 #RUNI   # type of angular distribution (either UNIF for uniform or RUNI for only radially-uniform)

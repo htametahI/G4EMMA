@@ -144,7 +144,7 @@ EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 	fqmax = 0.*deg;
 	fCharge3 = 0.;
 
-	inTargetFileName = UserDir + "/BeamSampling/beam.dat";  //Used in EMMASteppingAction
+	inTargetFileName = UserDir + "/ExcitationEnergy/beam.dat";  //Used in EMMASteppingAction
 
 	// alpha-source input file
 	useAlphaSource = false;
@@ -249,9 +249,9 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     }
 //---------------------------------------------------------------------------------------//
     //energy including spread
-    //particleGun->SetParticleEnergy(Ekin *MeV);
+    particleGun->SetParticleEnergy(Ekin *MeV); 
     //fixed energy
-    particleGun->SetParticleEnergy(energy *MeV);
+    // particleGun->SetParticleEnergy(energy *MeV);
 //---------------------------------------------------------------------------------------//
     // Sample position
     G4double xBeam=0.*m, yBeam=0.*m;
@@ -267,9 +267,9 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     G4double zemit = targetZoffset - targetThickness/2 - 10*angstrom;
 //---------------------------------------------------------------------------------------//
     //random emittance off optical axis
-    //particleGun->SetParticlePosition(G4ThreeVector(xBeam,yBeam,zemit));
+    particleGun->SetParticlePosition(G4ThreeVector(xBeam,yBeam,zemit));
     //fix emittance location to optical axis
-    particleGun->SetParticlePosition(G4ThreeVector(0,0,zemit));
+    // particleGun->SetParticlePosition(G4ThreeVector(0,0,zemit));
 //---------------------------------------------------------------------------------------//
     // Determine max angle from normalized transverse emittance
     G4double mass = particleDef->GetPDGMass();
@@ -295,11 +295,26 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
       z = cos(theta);
     }*/
     //fixed angles
+    // Edit: MQ random angles: 
     G4double theta = 0*deg;
+    G4double THETA = 0*deg;
+    G4double theta0 = Angle;
     G4double phi = 0*deg;
     x = sin(theta) * cos(phi);
     y = sin(theta) * sin(phi);
     z = cos(theta);
+    if (MaxAngle>0. && rmax>0.) {
+      theta = G4UniformRand() * MaxAngle * sqrt(1.0-(r/rmax)*(r/rmax));
+      phi = G4UniformRand()*CLHEP::twopi;
+      THETA = theta0 + theta*cos(phi);
+      x = sin(THETA);
+      y = sin(theta) * sin(phi);
+      z = cos(THETA);
+    } else {
+      x = sin(theta0) * cos(phi);
+      y = sin(theta0) * sin(phi);
+      z = cos(theta0);
+    }
     particleGun->SetParticleMomentumDirection(G4ThreeVector(x,y,z));
     
     G4cout<<"Prim.Gen.Action output "<<"Energy(MeV)= "<<energy <<" z emission location (mm) "

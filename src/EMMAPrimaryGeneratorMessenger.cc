@@ -72,7 +72,8 @@ EMMAPrimaryGeneratorMessenger::EMMAPrimaryGeneratorMessenger(EMMAPrimaryGenerato
   sigmaEngCmd->SetDefaultValue(0.0);
 
   AngCmd = new G4UIcmdWithADoubleAndUnit("/mydet/Angle",this);
-  AngCmd->SetGuidance("angle of primaries.  Not implemeted. To change angle need to change it in PrimaryGeneratorAction file");
+  // AngCmd->SetGuidance("angle of primaries.  Not implemeted. To change angle need to change it in PrimaryGeneratorAction file");
+  AngCmd->SetGuidance("Mean angle of primaries (applied with emittance sampling)");
   AngCmd->SetParameterName("t",true);
   AngCmd->SetRange("t<360.");
   AngCmd->SetDefaultValue(0.0);
