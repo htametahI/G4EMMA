@@ -61,8 +61,10 @@ extern G4String inTargetFileName;
 extern G4String postTargetFileName;
 extern G4String postTargetEjectileFileName;
 extern G4String postDegrader1FileName;
+extern G4String postTargetRecoilSpectrometerFileName;
 extern G4double depth;
 extern G4double beamEnergyAtTarget;
+
 // Ejectiles
 extern G4double ejectileEnergy;
 extern G4double ejectileDirX;

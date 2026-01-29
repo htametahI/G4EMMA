@@ -258,7 +258,19 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
                        << beamEnergyAtTarget/MeV
                        << G4endl;
           ejectileFile.close();
+          if (!postTargetRecoilSpectrometerFileName.empty()) {
+            G4double spectrometerTheta = std::atan(std::tan(theta) * std::cos(phi));
+            G4double spectrometerPhi = std::atan(std::tan(theta) * std::sin(phi));
+            std::ofstream recoilAngleFile(postTargetRecoilSpectrometerFileName, std::ios::app);
+            recoilAngleFile.precision(17);
+            recoilAngleFile << theKineticEnergy/MeV << ","
+                             << spectrometerTheta/deg << ","
+                             << spectrometerPhi/deg
+                             << G4endl;
+            recoilAngleFile.close();
+          }
         }
+        
     }
     if (name2!=name) {
       theTrack->SetTrackStatus(fStopAndKill);

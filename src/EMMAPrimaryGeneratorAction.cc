@@ -98,6 +98,7 @@ G4double depth;
 G4double beamEnergyAtTarget = 0.;
 // Ejectiles 
 G4String postTargetEjectileFileName;
+G4String postTargetRecoilSpectrometerFileName;
 G4double ejectileEnergy = 0.;
 G4double ejectileDirX = 0.;
 G4double ejectileDirY = 0.;
@@ -108,10 +109,13 @@ G4double recoilThetaCM = 0.;
 G4double ejectileThetaCM = 0.;
 // Triton Gate: 
 G4bool applyTritonLabAngleGate = true;
-G4double tritonLabAngleMinDeg = 132.32;
-G4double tritonLabAngleMaxDeg = 133.21;
+// G4double tritonLabAngleMinDeg = 132.32;
+// G4double tritonLabAngleMaxDeg = 133.21;
 // G4double tritonLabAngleMinDeg = 0;
 // G4double tritonLabAngleMaxDeg = 180;
+G4double tritonLabAngleMinDeg = 144.63753811;
+G4double tritonLabAngleMaxDeg = 145.88552705
+;
 
 G4long gateTrialTotal = 0;
 G4long gateAcceptedEvents = 0;
@@ -408,7 +412,15 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   postTargetEjectileFileName.append("deg.dat");
   outfile.open(postTargetEjectileFileName);
   outfile.close();
-  
+
+  postTargetRecoilSpectrometerFileName = UserDir;
+  postTargetRecoilSpectrometerFileName.append("/ExcitationEnergy/SpecEx");
+  postTargetRecoilSpectrometerFileName.append(excitationSuffix);
+  postTargetRecoilSpectrometerFileName.append("MeV_");
+  postTargetRecoilSpectrometerFileName.append(angleSuffix);
+  postTargetRecoilSpectrometerFileName.append("deg_angledeg.dat");
+  outfile.open(postTargetRecoilSpectrometerFileName);
+  outfile.close();
 
   postDegrader1FileName = UserDir;
   postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_reaction.dat"); //Used in EMMASteppingAction
@@ -451,6 +463,7 @@ void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /myd
   outfile.open (focalPlaneFileName);
   outfile.close();	  
   postTargetEjectileFileName = "";
+  postTargetRecoilSpectrometerFileName = "";
   postTargetFileName = UserDir;
   postTargetFileName.append("/ExcitationEnergy/postTarget_beam.dat"); //Used in EMMASteppingAction
   outfile.open (postTargetFileName);
