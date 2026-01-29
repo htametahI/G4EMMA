@@ -386,9 +386,27 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   // Ejectiles
   postTargetEjectileFileName = UserDir;
 
-  postTargetEjectileFileName.append("/ExcitationEnergy/postTarget_reaction_S3GateTest2.dat");
+  std::ostringstream excitationTag;
+  excitationTag.setf(std::ios::fixed);
+  excitationTag.precision(3);
+  excitationTag << fExcitationEnergy3 / MeV;
+  G4String excitationSuffix = excitationTag.str();
+  excitationSuffix = excitationSuffix.replace(excitationSuffix.find("."), 1, "p");
+  std::ostringstream angleTag;
+  angleTag.setf(std::ios::fixed);
+  angleTag.precision(2);
+  angleTag << tritonLabAngleMinDeg << "to" << tritonLabAngleMaxDeg;
+  G4String angleSuffix = angleTag.str();
+  angleSuffix = angleSuffix.replace(angleSuffix.find("."), 1, "p");
+  angleSuffix = angleSuffix.replace(angleSuffix.find("."), 1, "p");
+  postTargetEjectileFileName.append("/ExcitationEnergy/Ex");
+  postTargetEjectileFileName.append(excitationSuffix);
+  postTargetEjectileFileName.append("MeV_");
+  postTargetEjectileFileName.append(angleSuffix);
+  postTargetEjectileFileName.append("deg.dat");
   outfile.open(postTargetEjectileFileName);
   outfile.close();
+  
 
   postDegrader1FileName = UserDir;
   postDegrader1FileName.append("/ExcitationEnergy/postDegrader1_reaction.dat"); //Used in EMMASteppingAction
