@@ -255,7 +255,7 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
                        << ejectileTheta/deg << ","
                        << ejectilePhi/deg << ","
                        << ejectileThetaCM/deg << ","
-                       << (recoilForward ? 1 : 0)
+                       << beamEnergyAtTarget/MeV
                        << G4endl;
           ejectileFile.close();
         }

@@ -95,6 +95,7 @@ G4String focalPlaneFileName;
 G4double userCharge = 54.; // default value
 G4String postDegrader1FileName;
 G4double depth;
+G4double beamEnergyAtTarget = 0.;
 // Ejectiles 
 G4String postTargetEjectileFileName;
 G4double ejectileEnergy = 0.;
@@ -327,6 +328,7 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   else if (simulateReaction) {
     G4int id=anEvent->GetEventID();
     Ekin = energyBeam[id]; //from initializeReactionSimulation()
+    beamEnergyAtTarget = Ekin;
     G4ThreeVector dir(dirxBeam[id],diryBeam[id],dirzBeam[id]);	  
     if (fZ1==0.) {
       G4cout << "ERROR: Two-body reaction not defined" << G4endl;
