@@ -10,6 +10,6 @@
 0.0      # min c.m. angle
 180      # max c.m. anmakegle
 11       # charge state of recoil
-10.948787        # excitatßion energy of recoil last: 11.910787
+10.696787        # excitatßion energy of recoil last: 11.910787
 20       # solid-angle averaged cross section (mb/sr) inside the angular range specified above
 

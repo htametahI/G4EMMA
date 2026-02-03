@@ -1,0 +1,5 @@
+# Macro step executed by /control/foreach in ExcitationEnergyScan.mac.
+# Expects an ExcitationEnergy variable (MeV) provided by /control/foreach.
+
+/twoBodyReaction/ExcitationEnergy3 {ExcitationEnergy} MeV
+/mydet/doReaction

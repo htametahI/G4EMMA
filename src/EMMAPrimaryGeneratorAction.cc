@@ -109,13 +109,15 @@ G4double recoilThetaCM = 0.;
 G4double ejectileThetaCM = 0.;
 // Triton Gate: 
 G4bool applyTritonLabAngleGate = true;
+// outermost ring: 
 // G4double tritonLabAngleMinDeg = 132.32;
 // G4double tritonLabAngleMaxDeg = 133.21;
-// G4double tritonLabAngleMinDeg = 0;
-// G4double tritonLabAngleMaxDeg = 180;
-G4double tritonLabAngleMinDeg = 144.63753811;
-G4double tritonLabAngleMaxDeg = 145.88552705
-;
+// innermost ring:
+G4double tritonLabAngleMinDeg = 158.83874018;
+G4double tritonLabAngleMaxDeg = 160.46334506;
+// middle ring: 
+// G4double tritonLabAngleMinDeg = 144.63753811;
+// G4double tritonLabAngleMaxDeg = 145.88552705;
 
 G4long gateTrialTotal = 0;
 G4long gateAcceptedEvents = 0;
