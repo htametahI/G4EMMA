@@ -40,6 +40,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPhysicsList.cc" "CMakeFiles/EMMAapp.dir/src/EMMAPhysicsList.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMAPhysicsList.cc.o.d"
   "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPrimaryGeneratorAction.cc" "CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorAction.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorAction.cc.o.d"
   "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPrimaryGeneratorMessenger.cc" "CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorMessenger.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorMessenger.cc.o.d"
+  "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAS3Detector.cc" "CMakeFiles/EMMAapp.dir/src/EMMAS3Detector.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMAS3Detector.cc.o.d"
+  "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAS3Hit.cc" "CMakeFiles/EMMAapp.dir/src/EMMAS3Hit.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMAS3Hit.cc.o.d"
   "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASiliconDetector.cc" "CMakeFiles/EMMAapp.dir/src/EMMASiliconDetector.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMASiliconDetector.cc.o.d"
   "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASiliconDetectorHit.cc" "CMakeFiles/EMMAapp.dir/src/EMMASiliconDetectorHit.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMASiliconDetectorHit.cc.o.d"
   "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASteppingAction.cc" "CMakeFiles/EMMAapp.dir/src/EMMASteppingAction.cc.o" "gcc" "CMakeFiles/EMMAapp.dir/src/EMMASteppingAction.cc.o.d"

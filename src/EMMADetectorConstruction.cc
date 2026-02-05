@@ -66,6 +66,7 @@
 #include "EMMADetectorConstMessenger.hh"
 #include "EMMADriftChamber.hh"
 #include "EMMAIonChamber.hh"
+#include "EMMAS3Detector.hh"
 #include "EMMASiliconDetector.hh"
 #include "SpectrometerConstruction.hh"
 
@@ -81,6 +82,7 @@
 #include "G4IonTable.hh"
 
 #include <fstream> //Stream class to both read and write from/to files
+#include <vector>  // std::vector container for S3 ring logical volumes.
 using namespace std;
 #include <stdlib.h>     /* abort, NULL */
 
@@ -197,6 +199,60 @@ G4VPhysicalVolume* EMMADetectorConstruction::Construct()
     new G4PVPlacement(0,G4ThreeVector(0.,0.,zTarget),targetLogical,"targetPhys",worldLogical,0,0,fCheckOverlaps);
     Pipe1length = zQ1begins - zTarget - targetThickness/2.0;
 	targetLogical->SetVisAttributes(DegraderVisAtt);
+  }
+
+  //----------------------------------------------------------------------------------------------//
+  // Hardcoded upstream S3 detector definition.
+  //----------------------------------------------------------------------------------------------//
+  const G4bool buildS3Detector = true;                    // Set false here in code if you want to disable S3.
+  const G4int s3RingCount = 24;                           // Number of radial rings in S3.
+  const G4double s3InnerRadius = 11.0 * mm;              // Inner active radius of S3 silicon.
+  const G4double s3OuterRadius = 35.0 * mm;              // Outer active radius of S3 silicon.
+  const G4double s3Thickness = 1.0 * mm;                 // S3 silicon thickness.
+  const G4double s3DistanceFromTarget = 35.0 * mm;       // Distance from target center to S3 center (upstream).
+  const G4double zS3 = zTarget - s3DistanceFromTarget;   // Upstream z position (negative side of beam axis).
+
+  std::vector<G4LogicalVolume*> s3RingLogicalVolumes;    // Keep ring logical volumes for SD assignment later.
+
+  if (buildS3Detector) {                                  // Build S3 geometry only when enabled above.
+    const G4double s3RingWidth = (s3OuterRadius - s3InnerRadius) / s3RingCount; // Uniform ring pitch.
+
+    for (G4int ringIndex = 0; ringIndex < s3RingCount; ++ringIndex) { // Create one physical annulus per ring.
+      const G4double ringInnerRadius = s3InnerRadius + ringIndex * s3RingWidth; // This ring's inner radius.
+      const G4double ringOuterRadius = ringInnerRadius + s3RingWidth;            // This ring's outer radius.
+
+      const G4String s3RingSolidName = "S3RingSolid_" + std::to_string(ringIndex); // Unique solid name.
+      const G4String s3RingLogicalName = "S3RingLogical_" + std::to_string(ringIndex); // Unique LV name.
+      const G4String s3RingPhysicalName = "S3RingPhys_" + std::to_string(ringIndex); // Unique PV name.
+
+      G4VSolid* s3RingSolid = new G4Tubs(                  // Build annular silicon solid for this ring.
+        s3RingSolidName,
+        ringInnerRadius,
+        ringOuterRadius,
+        s3Thickness / 2.0,
+        0.0 * deg,
+        360.0 * deg);
+
+      G4LogicalVolume* s3RingLogical = new G4LogicalVolume( // Build logical volume with silicon material.
+        s3RingSolid,
+        silicon,
+        s3RingLogicalName,
+        0,
+        0,
+        0);
+
+      new G4PVPlacement(                                    // Place each ring at the same upstream z.
+        0,
+        G4ThreeVector(0.0, 0.0, zS3),
+        s3RingLogical,
+        s3RingPhysicalName,
+        worldLogical,
+        0,
+        ringIndex,
+        fCheckOverlaps);
+
+      s3RingLogicalVolumes.push_back(s3RingLogical);        // Save LV pointer for sensitive-detector hookup.
+    }
   }
   //
   //<><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>
@@ -396,6 +452,17 @@ G4VPhysicalVolume* EMMADetectorConstruction::Construct()
     = new EMMAIonChamber("IonChamberBack", "IonChamberBackHitsCollection", nofLayers);
   SDman->AddNewDetector(IonChamberBack);
   IonChamberLayerLV_Back->SetSensitiveDetector(IonChamberBack);
+
+  if (buildS3Detector) {                                   // Attach triton-sensitive SD to S3 rings.
+    EMMAS3Detector* s3Detector = new EMMAS3Detector(       // Create one SD for the whole S3 ring set.
+      "S3Detector",
+      "S3HitsCollection",
+      s3RingCount);
+    SDman->AddNewDetector(s3Detector);                     // Register S3 SD in Geant4 SD manager.
+    for (std::size_t ringIndex = 0; ringIndex < s3RingLogicalVolumes.size(); ++ringIndex) { // Loop all ring LVs.
+      s3RingLogicalVolumes[ringIndex]->SetSensitiveDetector(s3Detector); // Assign same SD to each ring volume.
+    }
+  }
 
   EMMAIonChamber* SiliconDetector
     = new EMMAIonChamber("SiliconDetector", "SiliconDetectorHitsCollection", nofLayers);

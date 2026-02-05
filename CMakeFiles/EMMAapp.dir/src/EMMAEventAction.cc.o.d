@@ -933,34 +933,12 @@ CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o: \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4ApplicationState.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4UIparameter.hh \
   /Users/mikeqiu/GEANT4/G4EMMA/include/EMMAAnalysisManager.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Event.hh \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/evtdefs.hh \
+  /Users/mikeqiu/GEANT4/G4EMMA/include/EMMADriftChamberHit.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VHit.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4THitsCollection.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Allocator.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4AllocatorPool.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4PrimaryVertex.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4PrimaryParticle.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/pwdefs.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4HCofThisEvent.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VHitsCollection.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4DCofThisEvent.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VDigiCollection.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrajectoryContainer.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VTrajectory.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VUserEventInformation.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4EventManager.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4StackManager.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4UserStackingAction.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4ClassificationOfNewTrack.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4StackedTrack.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrackStack.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SmartTrackStack.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SubEventTrackStack.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SubEvent.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Track.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Units/PhysicalConstants.h \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Units/SystemOfUnits.h \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/trkdefs.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4LogicalVolume.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Region.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4GeomSplitter.hh \
@@ -987,6 +965,8 @@ CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o: \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/RotationInterfaces.icc \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/RotationX.h \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/RotationX.icc \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Units/PhysicalConstants.h \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Units/SystemOfUnits.h \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/RotationY.h \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/RotationY.icc \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/RotationZ.h \
@@ -994,6 +974,37 @@ CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o: \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Vector/Rotation.icc \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VPhysicalVolume.icc \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4LogicalVolume.icc \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Transform3D.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Transform3D.h \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Transform3D.icc \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Point3D.h \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Vector3D.h \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Normal3D.h \
+  /Users/mikeqiu/GEANT4/G4EMMA/include/EMMAS3Hit.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Event.hh \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/set \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/evtdefs.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4PrimaryVertex.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4PrimaryParticle.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/pwdefs.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4HCofThisEvent.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4DCofThisEvent.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VDigiCollection.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrajectoryContainer.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VTrajectory.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VUserEventInformation.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4EventManager.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4StackManager.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4UserStackingAction.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4ClassificationOfNewTrack.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4StackedTrack.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrackStack.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SmartTrackStack.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SubEventTrackStack.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SubEvent.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Track.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/trkdefs.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4DynamicParticle.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4ElectronOccupancy.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Log.hh \
@@ -1009,13 +1020,6 @@ CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o: \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TouchableHistory.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4NavigationHistory.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4AffineTransform.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Transform3D.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Transform3D.h \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Transform3D.icc \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Point3D.h \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/BasicVector3D.h \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Vector3D.h \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/CLHEP/Geometry/Normal3D.h \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4AffineTransform.icc \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4NavigationLevel.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4NavigationLevelRep.hh \
@@ -1175,22 +1179,24 @@ CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o: \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/trkgdefs.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrackingMessenger.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4UserTrackingAction.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Trajectory.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrajectoryPoint.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VTrajectoryPoint.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VVisManager.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4RunManager.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4RunManagerKernel.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/rundefs.hh \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/list \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SDManager.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4HCtable.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SDStructure.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VSensitiveDetector.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4CollectionNameVector.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VHit.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VReadOutGeometry.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SensitiveVolumeList.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VSDFilter.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4SystemOfUnits.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4Trajectory.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4TrajectoryPoint.hh \
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VTrajectoryPoint.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4UImanager.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4UIcommandStatus.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VStateDependent.hh \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/icomsdefs.hh \
-  /Users/mikeqiu/GEANT4/G4EMMA/include/EMMADriftChamberHit.hh \
-  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4THitsCollection.hh
+  /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4VVisManager.hh

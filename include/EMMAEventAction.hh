@@ -60,19 +60,37 @@ class EMMAEventAction : public G4UserEventAction
 
   private:
     G4int DHC2ID;
+    G4int s3HCID;
     G4ThreeVector localPos;
     G4double theta;
     G4double fp_pos[2],fp_theta;
+    static const G4int kMaxS3Rings = 64;
+    G4double fS3EnergySigmaMeV;
+    G4long fS3RowsWritten;
+    G4long fS3EventsWithHits;
+    G4long fS3MultiHitEvents;
+    G4long fS3ExtraRowsFromMultiHits;
 
     EMMAEventActionMessenger* messenger;
     G4int verboseLevel;
 
 #ifdef G4ANALYSIS_USE
-	TFile* rootfile;
-	TTree* fp_tree;
-	TH2F* fp_hitpos;
-	TH1F* fp_hitangle;
+		TFile* rootfile;
+    TTree* fp_tree;
+		TH2F* fp_hitpos;
+		TH1F* fp_hitangle;
+    G4int s3_nhit;
+    G4int s3_ring[kMaxS3Rings];
+    G4double s3_energy_true[kMaxS3Rings];
+    G4double s3_energy_smeared[kMaxS3Rings];
+    G4double s3_edep[kMaxS3Rings];
+    G4double s3_theta[kMaxS3Rings];
+    G4double s3_phi[kMaxS3Rings];
+    G4double s3_total_edep;
 #endif // G4ANALYSIS_USE
+
+  private:
+    void ResetS3EventBuffers();
 
   public:
     inline void SetVerbose(G4int val) { verboseLevel = val; }

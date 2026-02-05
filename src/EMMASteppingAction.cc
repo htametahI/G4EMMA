@@ -48,11 +48,21 @@
 #include "G4UnitsTable.hh"
 
 #include <G4Event.hh>
+#include <cmath>
 
 using namespace CLHEP;
 
 // global variables 
 G4double currentCharge = 0.0; // default value is 0
+
+namespace {
+const G4bool kDebugTritonS3Path = false;    // Temporary diagnostic switch for triton-to-S3 transport.
+const G4double kS3DebugPlaneZ = -35.0*mm;   // Upstream S3 nominal z-plane.
+const G4int kMaxS3DebugPrints = 60;          // Protect terminal from unlimited debug output.
+G4int gS3CrossingPrints = 0;                 // Counter for plane-crossing debug lines.
+G4int gS3KilledPrints = 0;                   // Counter for killed-track debug lines.
+G4int gS3StepPrints = 0;                     // Counter for generic triton step debug lines.
+}
 
 
 
@@ -130,6 +140,66 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
   //get event number. useful for debugging
   G4int evnt = G4RunManager::GetRunManager()->GetCurrentEvent() -> GetEventID();
 
+  // Common pre/post-step state used by multiple checks below.
+  G4StepPoint* preStepPoint = theStep->GetPreStepPoint();
+  G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
+  if (!preStepPoint || !postStepPoint) return; // Defensive guard against incomplete steps.
+  const G4VPhysicalVolume* prePhys = preStepPoint->GetPhysicalVolume();
+  const G4VPhysicalVolume* postPhys = postStepPoint->GetPhysicalVolume();
+  if (!prePhys) return; // Defensive guard: pre-step volume must exist for normal transport.
+  const G4ThreeVector prePos = preStepPoint->GetPosition();
+  const G4ThreeVector postPos = postStepPoint->GetPosition();
+  G4String name = prePhys->GetLogicalVolume()->GetName();
+  G4String name2 = postPhys ? postPhys->GetLogicalVolume()->GetName() : "OutOfWorld";
+
+  // Temporary diagnostic: verify whether triton primaries geometrically cross the S3 z-plane.
+  const G4ParticleDefinition* particleDef = theTrack->GetDefinition();
+  const G4bool isTriton = (particleDef->GetAtomicNumber() == 1 && particleDef->GetAtomicMass() == 3);
+  if (!postPhys) {
+    if (kDebugTritonS3Path && isTriton && gS3KilledPrints < kMaxS3DebugPrints) {
+      G4cout << "[S3DEBUG] ev=" << evnt
+             << " triton exited world"
+             << " preVol=" << name
+             << " z(mm)=" << prePos.z()/mm
+             << G4endl;
+      ++gS3KilledPrints;
+    }
+    return; // No post volume means the track has left the world; stop further volume-name logic.
+  }
+  if (kDebugTritonS3Path && isTriton && gS3StepPrints < 120) {
+    G4cout << "[S3STEP] ev=" << evnt
+           << " preVol=" << name
+           << " postVol=" << name2
+           << " zPre(mm)=" << prePos.z()/mm
+           << " zPost(mm)=" << postPos.z()/mm
+           << " theta(deg)=" << MomentumDirection.theta()/deg
+           << G4endl;
+    ++gS3StepPrints;
+  }
+  if (kDebugTritonS3Path && isTriton && gS3CrossingPrints < kMaxS3DebugPrints) {
+    const G4double dz = postPos.z() - prePos.z();
+    const G4double sidePre = prePos.z() - kS3DebugPlaneZ;
+    const G4double sidePost = postPos.z() - kS3DebugPlaneZ;
+    if ((sidePre == 0.0) || (sidePost == 0.0) || (sidePre * sidePost < 0.0)) {
+      G4double xCross = prePos.x();
+      G4double yCross = prePos.y();
+      if (std::fabs(dz) > 0.0) {
+        const G4double t = (kS3DebugPlaneZ - prePos.z()) / dz;
+        xCross = prePos.x() + t * (postPos.x() - prePos.x());
+        yCross = prePos.y() + t * (postPos.y() - prePos.y());
+      }
+      const G4double rCross = std::sqrt(xCross*xCross + yCross*yCross);
+      G4cout << "[S3DEBUG] ev=" << evnt
+             << " triton crosses z=-35 mm"
+             << " preVol=" << name
+             << " postVol=" << name2
+             << " r(mm)=" << (rCross/mm)
+             << " theta(deg)=" << MomentumDirection.theta()/deg
+             << G4endl;
+      ++gS3CrossingPrints;
+    }
+  }
+
 //====================================================================//
 /* 
    Writes beam energy, direction and position to file at random 
@@ -137,14 +207,9 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
    for a subsequent simulation of reactions taking place in the 
    foil.
 */
-  G4StepPoint* preStepPoint = theStep->GetPreStepPoint();
-  G4String name = preStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
-
   //if target thickness is smaller than the step length then beam might miss target.
   //if that happens a warning output is generated.
   if (prepareBeam){
-    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
-    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
     if(name=="worldLogical" && name2=="Q1Logical"){
       G4cout<<"\nWARNING: target thickness too thin. Particle no. "<<evnt<<
       " run with /mydet/doPrepare "
@@ -157,8 +222,6 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
     G4TouchableHandle theTouchable = preStepPoint->GetTouchableHandle();
     G4ThreeVector worldPosition = preStepPoint->GetPosition();
     G4ThreeVector localPosition = theTouchable->GetHistory()->GetTopTransform().TransformPoint(worldPosition);
-    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
-    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
     G4TouchableHandle theTouchable2 = postStepPoint->GetTouchableHandle();
     G4ThreeVector worldPosition2 = postStepPoint->GetPosition();
 
@@ -196,10 +259,17 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
 			      + MomentumDirection[1]*MomentumDirection[1]
 			      + MomentumDirection[2]*MomentumDirection[2]);
 	G4double theta = std::acos( MomentumDirection[2]/dirn );
+        if (isTriton && theTrack->GetParentID() == 0) {
+          tritonExitTargetEnergy = theKineticEnergy; // True triton kinetic energy immediately after target exit.
+          tritonExitTargetTheta = theta;             // Triton polar angle immediately after target exit.
+        }
   // Edits by MQ: writes momentum direction to file ux, uy, uz and theta, phi 
   // auto momDir = postStepPoint->GetMomentumDirection(); // unit vector at target exit
   // G4double theta_m = std::acos(momDir.z());              // polar angle to +z (radians)
   G4double phi   = std::atan2(MomentumDirection[1] , MomentumDirection[0]); // azimuth about +z (radians)
+        if (isTriton && theTrack->GetParentID() == 0) {
+          tritonExitTargetPhi = phi;                 // Triton azimuth immediately after target exit.
+        }
 	std::ofstream outfile(postTargetFileName, std::ios::app); //Declared in EMMAPrimaryGeneratorAction
 	outfile.precision(17);
 	outfile << theKineticEnergy/MeV << ", " 
@@ -219,10 +289,8 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
   // Writes energies and angles just after (optional) degrader
    
   if (name=="degrader1Logical") {
-    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
     // G4TouchableHandle theTouchable2 = postStepPoint->GetTouchableHandle();
     // G4ThreeVector worldPosition2 = postStepPoint->GetPosition();
-    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
     if (!prepareBeam && name2!=name) {
       G4double dirn = sqrt( MomentumDirection[0]*MomentumDirection[0] 
 			    + MomentumDirection[1]*MomentumDirection[1]
@@ -273,14 +341,30 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
         
     }
     if (name2!=name) {
+      if (kDebugTritonS3Path && isTriton && gS3KilledPrints < kMaxS3DebugPrints) {
+        G4cout << "[S3DEBUG] ev=" << evnt
+               << " triton killed at degrader1 boundary"
+               << " preVol=" << name
+               << " postVol=" << name2
+               << " z(mm)=" << prePos.z()/mm
+               << G4endl;
+        ++gS3KilledPrints;
+      }
       theTrack->SetTrackStatus(fStopAndKill);
       return;
     }
   }
   if (name=="degrader2Logical") {
-    G4StepPoint* postStepPoint = theStep->GetPostStepPoint();
-    G4String name2 = postStepPoint->GetPhysicalVolume()->GetLogicalVolume()->GetName();
     if (name2!=name) {
+      if (kDebugTritonS3Path && isTriton && gS3KilledPrints < kMaxS3DebugPrints) {
+        G4cout << "[S3DEBUG] ev=" << evnt
+               << " triton killed at degrader2 boundary"
+               << " preVol=" << name
+               << " postVol=" << name2
+               << " z(mm)=" << prePos.z()/mm
+               << G4endl;
+        ++gS3KilledPrints;
+      }
       theTrack->SetTrackStatus(fStopAndKill);
       return;
     }
@@ -354,6 +438,15 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
   // terminate event if trajectory hits a wall or slit
   if(deadint!=0)dead=true;	//hit EMMA wall true
   if (dead==true){
+    if (kDebugTritonS3Path && isTriton && gS3KilledPrints < kMaxS3DebugPrints) {
+      G4cout << "[S3DEBUG] ev=" << evnt
+             << " triton aborted by wall/slit logic"
+             << " volume=" << name
+             << " deadint=" << deadint
+             << " z(mm)=" << prePos.z()/mm
+             << G4endl;
+      ++gS3KilledPrints;
+    }
 #ifdef G4ANALYSIS_USE
     dead_hit->Fill(deadint);	//fill root histogram with component number
 #endif // G4ANALYSIS_USE
@@ -443,4 +536,3 @@ void EMMASteppingAction::UserSteppingAction(const G4Step* theStep)
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-

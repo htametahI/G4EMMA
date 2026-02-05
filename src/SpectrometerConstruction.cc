@@ -210,7 +210,10 @@ SpectrometerConstruction::SpectrometerConstruction(G4Material* Vacuum, G4Materia
 	new G4PVPlacement(Rotate0,G4ThreeVector(0*cm,0*cm,Pipe1Cap1z),Pipe1Cap1Logical,"Pipe1Cap1Physical",SpecWorldLogical,0,0,fCheckOverlaps);
     //
     // Pipe1Cap2
-    G4VSolid* Pipe1Cap2Solid = new G4Tubs("Pipe1Cap2Tub",0*cm,rbigpipe+wallThick,1*cm,0*deg,360*deg);
+    // Open an upstream center aperture so backward tritons can reach the S3 plane.
+    // (S3 outer radius is 35 mm, so 40 mm gives a small geometric margin.)
+    const G4double pipe1Cap2ApertureRadius = 4.0*cm;
+    G4VSolid* Pipe1Cap2Solid = new G4Tubs("Pipe1Cap2Tub",pipe1Cap2ApertureRadius,rbigpipe+wallThick,1*cm,0*deg,360*deg);
 	G4LogicalVolume* Pipe1Cap2Logical = new G4LogicalVolume(Pipe1Cap2Solid,Wall,"Pipe1Cap2Logical", 0,0,0);
 	G4double Pipe1Cap2z = Pipe1Cap1z-1.5*cm;
 	new G4PVPlacement(Rotate0,G4ThreeVector(0*cm,0*cm,Pipe1Cap2z),Pipe1Cap2Logical,"Pipe1Cap2Physical",SpecWorldLogical,0,0,fCheckOverlaps);

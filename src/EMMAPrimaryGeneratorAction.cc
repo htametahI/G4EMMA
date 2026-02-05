@@ -59,6 +59,7 @@
 #include <sstream>
 #include <algorithm>
 #include <cmath>
+#include <limits>
 using namespace std;
 
 namespace {
@@ -70,6 +71,52 @@ bool IsFinite(G4double value)
 bool IsFiniteVector(const G4ThreeVector& vec)
 {
   return std::isfinite(vec.x()) && std::isfinite(vec.y()) && std::isfinite(vec.z());
+}
+
+// ------------------------------------------------------------------
+// Hardcoded S3 ring-gate controls (set values here directly in code).
+// ------------------------------------------------------------------
+const G4bool kApplyTritonLabAngleGate = true;    // Enable reaction-point pre-sampling gate to reduce wasted transport.
+const G4bool kUseS3RingGate = false;             // Ignored when reaction-point gate is disabled.
+const G4int kSelectedS3Ring = 0;                 // 0-based ring copy number to keep (requested: ring 0).
+const G4bool kGenerateTritonToS3 = true;         // If true, generate product #4 (triton) as tracked primary.
+const G4int kS3RingCount = 24;                   // Must match S3 geometry ring count.
+const G4double kS3InnerRadius = 11.0 * mm;       // Must match S3 geometry inner radius.
+const G4double kS3OuterRadius = 35.0 * mm;       // Must match S3 geometry outer radius.
+const G4double kS3DistanceFromTarget = 35. * mm; // Must match upstream S3 target distance.
+const G4double kManualGateMinDeg = 157.0; // Manual fallback min theta if ring gate is off.
+const G4double kManualGateMaxDeg = 160.46334506; // Manual fallback max theta if ring gate is off.
+const G4int kS3AcceptedRowSamplingBudgetFactor = 200; // Max generated events = factor * requested accepted output rows.
+// const G4double kManualGateMinDeg = 130.0; // Manual fallback min theta if ring gate is off.
+// const G4double kManualGateMaxDeg = 160.0; // Manual fallback max theta if ring gate is off.
+
+bool ComputeS3RingLabAngleRangeDeg(
+  G4int ringNumberZeroBased,
+  G4int ringCount,
+  G4double innerRadius,
+  G4double outerRadius,
+  G4double distanceFromTarget,
+  G4double& thetaMinDeg,
+  G4double& thetaMaxDeg)
+{
+  if (ringCount <= 0 || ringNumberZeroBased < 0 || ringNumberZeroBased >= ringCount) {
+    return false; // Ring index is outside valid 0..ringCount-1.
+  }
+  if (distanceFromTarget <= 0.0 || outerRadius <= innerRadius) {
+    return false; // Geometry values are not physically valid.
+  }
+
+  const G4double ringWidth = (outerRadius - innerRadius) / ringCount; // Uniform radial pitch.
+  const G4double ringInnerRadius = innerRadius + ringNumberZeroBased * ringWidth; // Selected-ring inner edge.
+  const G4double ringOuterRadius = ringInnerRadius + ringWidth; // Selected-ring outer edge.
+
+  // Upstream detector is at negative z, so theta = 180 deg - atan(r/|z|).
+  const G4double thetaAtInnerEdgeDeg = 180.0 - std::atan2(ringInnerRadius, distanceFromTarget) / deg; // Inner-edge theta.
+  const G4double thetaAtOuterEdgeDeg = 180.0 - std::atan2(ringOuterRadius, distanceFromTarget) / deg; // Outer-edge theta.
+
+  thetaMinDeg = std::min(thetaAtInnerEdgeDeg, thetaAtOuterEdgeDeg); // Lower angular boundary.
+  thetaMaxDeg = std::max(thetaAtInnerEdgeDeg, thetaAtOuterEdgeDeg); // Upper angular boundary.
+  return true; // Valid range computed successfully.
 }
 }
 
@@ -103,29 +150,76 @@ G4double ejectileEnergy = 0.;
 G4double ejectileDirX = 0.;
 G4double ejectileDirY = 0.;
 G4double ejectileDirZ = 0.;
+G4double tritonExitTargetEnergy = -1.0 * MeV;
+G4double tritonExitTargetTheta = -9999.0 * deg;
+G4double tritonExitTargetPhi = -9999.0 * deg;
+G4double recoilLabEnergy = 0.;
+G4double recoilLabDirX = 0.;
+G4double recoilLabDirY = 0.;
+G4double recoilLabDirZ = 0.;
 G4int ejectileZ = 0;
 G4int ejectileA = 0;
 G4double recoilThetaCM = 0.;
 G4double ejectileThetaCM = 0.;
-// Triton Gate: 
-G4bool applyTritonLabAngleGate = true;
-// outermost ring: 
-// G4double tritonLabAngleMinDeg = 132.32;
-// G4double tritonLabAngleMaxDeg = 133.21;
-// innermost ring:
-G4double tritonLabAngleMinDeg = 158.83874018;
-G4double tritonLabAngleMaxDeg = 160.46334506;
-// middle ring: 
-// G4double tritonLabAngleMinDeg = 144.63753811;
-// G4double tritonLabAngleMaxDeg = 145.88552705;
+G4String s3TritonOutputFileName;
+
+// Triton gate controls used in simulateTwoBodyReaction rejection sampling.
+G4bool applyTritonLabAngleGate = kApplyTritonLabAngleGate; // Enable/disable rejection gate here in code.
+G4int tritonLabGateRingNumber = kSelectedS3Ring; // 0-based ring selector used to derive angular gate.
+G4double tritonLabAngleMinDeg = kManualGateMinDeg; // Active lower bound (deg), set below.
+G4double tritonLabAngleMaxDeg = kManualGateMaxDeg; // Active upper bound (deg), set below.
 
 G4long gateTrialTotal = 0;
 G4long gateAcceptedEvents = 0;
+G4bool enforceS3AcceptedRowTarget = false; // If true, abort reaction run once accepted S3 output rows hit target.
+G4long s3AcceptedRowTarget = 0;            // Target accepted S3 output rows (set from nEvents in reaction mode).
+G4long s3AcceptedRowCount = 0;             // Running count of accepted S3 output rows written to plain-text file.
+G4long s3GlobalEventSerial = -1;           // Monotonic event serial used as output eventID across possible run restarts.
+G4bool beamInputWrapNoticePrinted = false; // Print one-time notice when generated events wrap over beam-input rows.
+G4bool s3AcceptedRowAbortActive = false;   // True only during /mydet/doReaction BeamOn; keeps manual runs from aborting.
 
 EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 {
 	sigmaEnergy = 0.*MeV;
 	transEmittance = 0.*mm*mrad;
+
+  // Configure triton rejection gate from chosen S3 ring geometry.
+  if (applyTritonLabAngleGate && kUseS3RingGate) {
+    const G4bool hasValidRange = ComputeS3RingLabAngleRangeDeg(
+      tritonLabGateRingNumber,
+      kS3RingCount,
+      kS3InnerRadius,
+      kS3OuterRadius,
+      kS3DistanceFromTarget,
+      tritonLabAngleMinDeg,
+      tritonLabAngleMaxDeg);
+    if (!hasValidRange) {
+      std::ostringstream msg;
+      msg << "Invalid S3 ring gate settings. ring=" << tritonLabGateRingNumber
+          << " ringCount=" << kS3RingCount
+          << " inner(mm)=" << (kS3InnerRadius / mm)
+          << " outer(mm)=" << (kS3OuterRadius / mm)
+          << " distance(mm)=" << (kS3DistanceFromTarget / mm);
+      G4Exception("EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction", "EMMA0009",
+                  FatalException, msg.str().c_str());
+    }
+    G4cout << "Configured triton gate for S3 ring(copyNo) " << tritonLabGateRingNumber
+           << " with theta_lab in [" << tritonLabAngleMinDeg
+           << ", " << tritonLabAngleMaxDeg << "] deg" << G4endl;
+  } else if (applyTritonLabAngleGate) {
+    tritonLabGateRingNumber = -1; // Mark that this run uses manual theta limits, not a ring-derived gate.
+    G4cout << "Configured manual triton gate with theta_lab in ["
+           << tritonLabAngleMinDeg << ", " << tritonLabAngleMaxDeg
+           << "] deg" << G4endl;
+  } else {
+    tritonLabGateRingNumber = -1; // Mark that no ring-specific gate is active.
+    G4cout << "Triton lab-angle gate disabled." << G4endl;
+  }
+  if (kGenerateTritonToS3) {
+    G4cout << "Primary reaction product mode: tracking ejectile/triton (product #4)." << G4endl;
+  } else {
+    G4cout << "Primary reaction product mode: tracking recoil (product #3)." << G4endl;
+  }
 
 	G4int n_particle = 1;
 	//G4ParticleGun class generates primary particle(s) with a given momentum and position
@@ -205,6 +299,9 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 		
   G4double Ekin;
   G4ParticleDefinition* particleDef;
+  tritonExitTargetEnergy = -1.0 * MeV; // Reset per-event; stepping action fills it when triton exits the target.
+  tritonExitTargetTheta = -9999.0 * deg; // Reset per-event triton target-exit theta.
+  tritonExitTargetPhi = -9999.0 * deg;   // Reset per-event triton target-exit phi.
 
 
   // to simulate just an isotropic alpha source
@@ -332,7 +429,15 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
   // REACTION (values read in from beam.dat in EMMAapp)
   else if (simulateReaction) {
-    G4int id=anEvent->GetEventID();
+    G4int id = anEvent->GetEventID(); // Geant4 event id within current run.
+    if (nEvents > 0 && id >= nEvents) { // When running strict accepted-row mode, generated events can exceed beam-file rows.
+      if (!beamInputWrapNoticePrinted) { // Print this once to make wrap behavior explicit.
+        G4cout << "Reaction generator: wrapping beam-input rows with modulo nEvents "
+               << "(generated events exceed beam.dat rows)." << G4endl;
+        beamInputWrapNoticePrinted = true;
+      }
+      id = id % nEvents; // Reuse beam sampling rows cyclically.
+    }
     Ekin = energyBeam[id]; //from initializeReactionSimulation()
     beamEnergyAtTarget = Ekin;
     G4ThreeVector dir(dirxBeam[id],diryBeam[id],dirzBeam[id]);	  
@@ -341,14 +446,25 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
       exit (EXIT_FAILURE);
     }
     simulateTwoBodyReaction( Ekin, dir );
-    G4int Z3=fZ3, A3=fA3;
-    G4double Ex = fExcitationEnergy3;
-    particleDef = G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(Z3,A3,Ex);  // Create new ion
+
+    // Select which reaction product is tracked as the Geant4 primary.
+    G4int generatedZ = fZ3;                   // Default: recoil (product #3), original behavior.
+    G4int generatedA = fA3;                   // Default: recoil mass number.
+    G4double generatedEx = fExcitationEnergy3; // Default: recoil excitation energy.
+    G4double generatedCharge = userCharge;    // Default: recoil charge state from input file.
+    if (kGenerateTritonToS3) {
+      generatedZ = fZ4;                       // Switch to ejectile/triton (product #4).
+      generatedA = fA4;                       // Switch to ejectile mass number.
+      generatedEx = 0.0;                      // Triton is generated in ground state.
+      generatedCharge = static_cast<G4double>(generatedZ); // Use physical triton charge (+1).
+    }
+
+    particleDef = G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(generatedZ, generatedA, generatedEx);  // Create selected ion.
     particleGun->SetParticleDefinition(particleDef);
 
     particleGun->SetParticleEnergy(Ekin*MeV);
     particleGun->SetParticleMomentumDirection(dir);
-    particleGun->SetParticleCharge(userCharge);
+    particleGun->SetParticleCharge(generatedCharge);
     G4double x=posxBeam[id]*mm, y=posyBeam[id]*mm, z=poszBeam[id]*mm;
     G4double dz=depth/2.;
     z = z-dz; // correction needed because target placement refers to center of target ...
@@ -381,6 +497,11 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
 {
   prepareBeam = false;
   simulateReaction = true;
+  enforceS3AcceptedRowTarget = true;   // Option 2: keep generating until we collect requested accepted S3 rows.
+  s3AcceptedRowTarget = nEvents;       // Requested number of accepted output rows comes from user-set nEvents.
+  s3AcceptedRowCount = 0;              // Reset accepted-row counter at run start.
+  s3GlobalEventSerial = -1;            // Reset monotonic global event serial written to output file.
+  beamInputWrapNoticePrinted = false;  // Reset one-time wrap notice for this reaction run.
   userCharge = fCharge3; //read in from reaction.dat in EMMAapp
   std::ofstream outfile; 
   focalPlaneFileName = UserDir;
@@ -429,6 +550,16 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   outfile.open (postDegrader1FileName);
   outfile.close();
 
+  // Create/clear plain-text S3 triton observables file for this run.
+  s3TritonOutputFileName = UserDir;
+  s3TritonOutputFileName.append("/ExcitationEnergy/S3_triton_ring_observables.dat");
+  std::ofstream s3Outfile(s3TritonOutputFileName, std::ios::trunc);
+  s3Outfile << "# beamEnergyAtTarget_MeV,tritonTargetExitEnergy_MeV,tritonTargetExitTheta_deg,tritonTargetExitPhi_deg,s3EnergyLoss_MeV,tritonThetaBeforeS3_deg,tritonPhiBeforeS3_deg,tritonEnergyAtReactionPoint_MeV,tritonThetaAtReactionPoint_deg,tritonPhiAtReactionPoint_deg,s3EnergySmeared_MeV,tritonTargetEnergyLoss_MeV" << G4endl;
+  s3Outfile << "# ringGateCopyNo=" << tritonLabGateRingNumber
+            << " thetaMinDeg=" << tritonLabAngleMinDeg
+            << " thetaMaxDeg=" << tritonLabAngleMaxDeg << G4endl;
+  s3Outfile.close();
+
   // read in previously simulated data
   energyBeam = new G4double[nEvents];
   posxBeam = new G4double[nEvents];
@@ -449,8 +580,23 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   }
   beamFile.close();	
 
-  // simulated nEvents
-  G4RunManager::GetRunManager()->BeamOn(nEvents);
+  // Option 2: run with an oversampling budget and stop early when accepted S3 rows reach target.
+  G4long budgetLong = static_cast<G4long>(nEvents) * static_cast<G4long>(kS3AcceptedRowSamplingBudgetFactor); // Oversampling budget.
+  if (budgetLong < nEvents) budgetLong = nEvents; // Guard against overflow wrap on multiplication.
+  if (budgetLong > std::numeric_limits<G4int>::max()) budgetLong = std::numeric_limits<G4int>::max(); // BeamOn takes int.
+  const G4int generatedEventBudget = static_cast<G4int>(budgetLong); // Final generated-event cap for this run.
+  G4cout << "S3 accepted-row mode enabled: targetRows=" << s3AcceptedRowTarget
+         << ", generatedEventBudget=" << generatedEventBudget << G4endl;
+  s3AcceptedRowAbortActive = true; // Enable abort-on-target only for this internal reaction run.
+  G4RunManager::GetRunManager()->BeamOn(generatedEventBudget); // EventAction aborts early when target is reached.
+  s3AcceptedRowAbortActive = false; // Disable abort-on-target for any subsequent manual /run/beamOn.
+  if (s3AcceptedRowCount < s3AcceptedRowTarget) { // Notify user if budget exhausted before target accepted rows.
+    G4cout << "Warning: accepted S3 rows (" << s3AcceptedRowCount
+           << ") below target (" << s3AcceptedRowTarget
+           << "). Increase kS3AcceptedRowSamplingBudgetFactor if needed." << G4endl;
+  } else {
+    G4cout << "Reached S3 accepted-row target: " << s3AcceptedRowCount << G4endl;
+  }
 }
 
 
@@ -458,6 +604,12 @@ void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /myd
 {
   prepareBeam = false;
   simulateReaction = false;
+  s3AcceptedRowAbortActive = false; // Ensure manual runs don't inherit abort-on-target behavior.
+  enforceS3AcceptedRowTarget = false; // Disable accepted-row stopping logic outside reaction mode.
+  s3AcceptedRowTarget = 0;            // Clear target rows when not in reaction mode.
+  s3AcceptedRowCount = 0;             // Clear running accepted-row counter.
+  s3GlobalEventSerial = -1;           // Reset global event serial for non-reaction runs.
+  s3TritonOutputFileName = ""; // Disable S3 triton text output in pure beam mode.
   userCharge = beamCharge; //read in from beam.dat in EMMAapp
   std::ofstream outfile;
   focalPlaneFileName = UserDir;
@@ -485,6 +637,12 @@ void EMMAPrimaryGeneratorAction::initializeBeamPreparation() // called using /my
 {
   prepareBeam = true;
   simulateReaction = false;
+  s3AcceptedRowAbortActive = false; // Ensure manual runs don't inherit abort-on-target behavior.
+  enforceS3AcceptedRowTarget = false; // Disable accepted-row stopping logic outside reaction mode.
+  s3AcceptedRowTarget = 0;            // Clear target rows when not in reaction mode.
+  s3AcceptedRowCount = 0;             // Clear running accepted-row counter.
+  s3GlobalEventSerial = -1;           // Reset global event serial for non-reaction runs.
+  s3TritonOutputFileName = ""; // Disable S3 triton text output in beam-preparation mode.
   userCharge = beamCharge; //read in from beam.dat in EMMAapp
   std::ofstream outfile; 
   outfile.open (inTargetFileName); //declared in constructor
@@ -604,13 +762,18 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
     lv4.boost(bst);
   
     
-  // Kinetic energy in lab of product #3
-    Ebeam = lv3[3] - m3;
-
-  // Momentum in lab of product #3
-    dir[0] = lv3[0];
-    dir[1] = lv3[1];
-    dir[2] = lv3[2];
+    // Return selected product kinematics to the primary generator.
+    if (kGenerateTritonToS3) {
+      Ebeam = lv4[3] - m4; // Use triton/ejectile (product #4) kinetic energy.
+      dir[0] = lv4[0];     // Use triton/ejectile momentum x component.
+      dir[1] = lv4[1];     // Use triton/ejectile momentum y component.
+      dir[2] = lv4[2];     // Use triton/ejectile momentum z component.
+    } else {
+      Ebeam = lv3[3] - m3; // Use recoil (product #3) kinetic energy, original behavior.
+      dir[0] = lv3[0];     // Use recoil momentum x component.
+      dir[1] = lv3[1];     // Use recoil momentum y component.
+      dir[2] = lv3[2];     // Use recoil momentum z component.
+    }
 
     // Store ejectile (product #4) kinematics for logging at target exit.
     ejectileEnergy = lv4[3] - m4;
@@ -625,6 +788,20 @@ void EMMAPrimaryGeneratorAction::simulateTwoBodyReaction( G4double &Ebeam, G4Thr
       ejectileDirY = 0.;
       ejectileDirZ = 0.;
     }
+
+    // Store recoil (product #3) lab kinematics for per-event S3 output rows.
+    recoilLabEnergy = lv3[3] - m3;
+    G4double recoilLabP = std::sqrt(lv3[0]*lv3[0] + lv3[1]*lv3[1] + lv3[2]*lv3[2]);
+    if (IsFinite(recoilLabP) && recoilLabP > 0.) {
+      recoilLabDirX = lv3[0] / recoilLabP;
+      recoilLabDirY = lv3[1] / recoilLabP;
+      recoilLabDirZ = lv3[2] / recoilLabP;
+    } else {
+      recoilLabDirX = 0.;
+      recoilLabDirY = 0.;
+      recoilLabDirZ = 0.;
+    }
+
     if (!applyTritonLabAngleGate ||
         IsTritonLabAngleAccepted(ejectileDirZ, tritonLabAngleMinDeg, tritonLabAngleMaxDeg)) {
       gateAccepted = true;

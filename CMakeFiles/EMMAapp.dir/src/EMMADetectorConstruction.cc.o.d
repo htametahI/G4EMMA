@@ -1146,6 +1146,8 @@ CMakeFiles/EMMAapp.dir/src/EMMADetectorConstruction.cc.o: \
   /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4/G4THitsCollection.hh \
   /Users/mikeqiu/GEANT4/G4EMMA/include/EMMAIonChamber.hh \
   /Users/mikeqiu/GEANT4/G4EMMA/include/EMMAIonChamberHit.hh \
+  /Users/mikeqiu/GEANT4/G4EMMA/include/EMMAS3Detector.hh \
+  /Users/mikeqiu/GEANT4/G4EMMA/include/EMMAS3Hit.hh \
   /Users/mikeqiu/GEANT4/G4EMMA/include/EMMASiliconDetector.hh \
   /Users/mikeqiu/GEANT4/G4EMMA/include/EMMASiliconDetectorHit.hh \
   /Users/mikeqiu/GEANT4/G4EMMA/include/SpectrometerConstruction.hh \
