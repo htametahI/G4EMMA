@@ -209,7 +209,7 @@ G4VPhysicalVolume* EMMADetectorConstruction::Construct()
   const G4double s3InnerRadius = 11.0 * mm;              // Inner active radius of S3 silicon.
   const G4double s3OuterRadius = 35.0 * mm;              // Outer active radius of S3 silicon.
   const G4double s3Thickness = 1.0 * mm;                 // S3 silicon thickness.
-  const G4double s3DistanceFromTarget = 35.0 * mm;       // Distance from target center to S3 center (upstream).
+  const G4double s3DistanceFromTarget = 31.0 * mm;       // Distance from target center to S3 center (upstream).
   const G4double zS3 = zTarget - s3DistanceFromTarget;   // Upstream z position (negative side of beam axis).
 
   std::vector<G4LogicalVolume*> s3RingLogicalVolumes;    // Keep ring logical volumes for SD assignment later.

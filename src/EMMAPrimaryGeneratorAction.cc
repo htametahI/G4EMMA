@@ -83,10 +83,12 @@ const G4bool kGenerateTritonToS3 = true;         // If true, generate product #4
 const G4int kS3RingCount = 24;                   // Must match S3 geometry ring count.
 const G4double kS3InnerRadius = 11.0 * mm;       // Must match S3 geometry inner radius.
 const G4double kS3OuterRadius = 35.0 * mm;       // Must match S3 geometry outer radius.
-const G4double kS3DistanceFromTarget = 35. * mm; // Must match upstream S3 target distance.
-const G4double kManualGateMinDeg = 157.0; // Manual fallback min theta if ring gate is off.
-const G4double kManualGateMaxDeg = 160.46334506; // Manual fallback max theta if ring gate is off.
+const G4double kS3DistanceFromTarget = 31. * mm; // Must match upstream S3 target distance.
+const G4double kManualGateMinDeg = 130.5; // Manual fallback min theta if ring gate is off.
+const G4double kManualGateMaxDeg = 133.0; // Manual fallback max theta if ring gate is off.
 const G4int kS3AcceptedRowSamplingBudgetFactor = 200; // Max generated events = factor * requested accepted output rows.
+const G4int kReactionBeamOnChunkEvents = 5000; // Reaction is run in chunks; reduces upfront beam pre-generation.
+const G4int kBeamTopUpChunkEvents = 5000; // Extra beam samples are generated in small chunks on demand.
 // const G4double kManualGateMinDeg = 130.0; // Manual fallback min theta if ring gate is off.
 // const G4double kManualGateMaxDeg = 160.0; // Manual fallback max theta if ring gate is off.
 
@@ -175,13 +177,21 @@ G4bool enforceS3AcceptedRowTarget = false; // If true, abort reaction run once a
 G4long s3AcceptedRowTarget = 0;            // Target accepted S3 output rows (set from nEvents in reaction mode).
 G4long s3AcceptedRowCount = 0;             // Running count of accepted S3 output rows written to plain-text file.
 G4long s3GlobalEventSerial = -1;           // Monotonic event serial used as output eventID across possible run restarts.
-G4bool beamInputWrapNoticePrinted = false; // Print one-time notice when generated events wrap over beam-input rows.
 G4bool s3AcceptedRowAbortActive = false;   // True only during /mydet/doReaction BeamOn; keeps manual runs from aborting.
+G4int beamInputRowsLoaded = 0;             // Number of prepared beam rows currently loaded in memory.
+G4long reactionGeneratedEventCount = 0;    // Monotonic generated-event index across chunked reaction BeamOn calls.
 
 EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 {
 	sigmaEnergy = 0.*MeV;
 	transEmittance = 0.*mm*mrad;
+	energyBeam = nullptr;
+	posxBeam = nullptr;
+	posyBeam = nullptr;
+	poszBeam = nullptr;
+	dirxBeam = nullptr;
+	diryBeam = nullptr;
+	dirzBeam = nullptr;
 
   // Configure triton rejection gate from chosen S3 ring geometry.
   if (applyTritonLabAngleGate && kUseS3RingGate) {
@@ -275,6 +285,13 @@ EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 
 EMMAPrimaryGeneratorAction::~EMMAPrimaryGeneratorAction()
 {
+  delete[] energyBeam;
+  delete[] posxBeam;
+  delete[] posyBeam;
+  delete[] poszBeam;
+  delete[] dirxBeam;
+  delete[] diryBeam;
+  delete[] dirzBeam;
   delete particleGun;	//must delete G4ParticleGun
   delete gunMessenger;
 }
@@ -429,14 +446,21 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 
   // REACTION (values read in from beam.dat in EMMAapp)
   else if (simulateReaction) {
-    G4int id = anEvent->GetEventID(); // Geant4 event id within current run.
-    if (nEvents > 0 && id >= nEvents) { // When running strict accepted-row mode, generated events can exceed beam-file rows.
-      if (!beamInputWrapNoticePrinted) { // Print this once to make wrap behavior explicit.
-        G4cout << "Reaction generator: wrapping beam-input rows with modulo nEvents "
-               << "(generated events exceed beam.dat rows)." << G4endl;
-        beamInputWrapNoticePrinted = true;
-      }
-      id = id % nEvents; // Reuse beam sampling rows cyclically.
+    const G4long idLong = reactionGeneratedEventCount++; // Monotonic sample index across chunked BeamOn calls.
+    if (idLong < 0 || idLong > std::numeric_limits<G4int>::max()) {
+      std::ostringstream msg;
+      msg << "Reaction generated-event index overflow: " << idLong;
+      G4Exception("EMMAPrimaryGeneratorAction::GeneratePrimaries", "EMMA0014",
+                  FatalException, msg.str().c_str());
+    }
+    const G4int id = static_cast<G4int>(idLong);
+    if (id >= beamInputRowsLoaded) {
+      std::ostringstream msg;
+      msg << "Reaction event index " << id
+          << " exceeds loaded beam rows (" << beamInputRowsLoaded
+          << "). Generate/load more beam rows before this reaction chunk.";
+      G4Exception("EMMAPrimaryGeneratorAction::GeneratePrimaries", "EMMA0010",
+                  FatalException, msg.str().c_str());
     }
     Ekin = energyBeam[id]; //from initializeReactionSimulation()
     beamEnergyAtTarget = Ekin;
@@ -501,7 +525,8 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
   s3AcceptedRowTarget = nEvents;       // Requested number of accepted output rows comes from user-set nEvents.
   s3AcceptedRowCount = 0;              // Reset accepted-row counter at run start.
   s3GlobalEventSerial = -1;            // Reset monotonic global event serial written to output file.
-  beamInputWrapNoticePrinted = false;  // Reset one-time wrap notice for this reaction run.
+  reactionGeneratedEventCount = 0;     // Reset generated-event index for this reaction run.
+  beamInputRowsLoaded = 0;             // Reset loaded beam-row count; filled below.
   userCharge = fCharge3; //read in from reaction.dat in EMMAapp
   std::ofstream outfile; 
   focalPlaneFileName = UserDir;
@@ -560,36 +585,157 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
             << " thetaMaxDeg=" << tritonLabAngleMaxDeg << G4endl;
   s3Outfile.close();
 
-  // read in previously simulated data
-  energyBeam = new G4double[nEvents];
-  posxBeam = new G4double[nEvents];
-  posyBeam = new G4double[nEvents];
-  poszBeam = new G4double[nEvents];
-  dirxBeam = new G4double[nEvents];
-  diryBeam = new G4double[nEvents];
-  dirzBeam = new G4double[nEvents];
-  std::ifstream beamFile(inTargetFileName, std::ios::in); //read in from /BeamSampling/beam.dat
-  for (int i=0; i<nEvents; i++) {
-    beamFile >> energyBeam[i];
-    beamFile >> posxBeam[i];
-    beamFile >> posyBeam[i];
-    beamFile >> poszBeam[i];
-    beamFile >> dirxBeam[i];
-    beamFile >> diryBeam[i];
-    beamFile >> dirzBeam[i];
-  }
-  beamFile.close();	
-
   // Option 2: run with an oversampling budget and stop early when accepted S3 rows reach target.
   G4long budgetLong = static_cast<G4long>(nEvents) * static_cast<G4long>(kS3AcceptedRowSamplingBudgetFactor); // Oversampling budget.
   if (budgetLong < nEvents) budgetLong = nEvents; // Guard against overflow wrap on multiplication.
   if (budgetLong > std::numeric_limits<G4int>::max()) budgetLong = std::numeric_limits<G4int>::max(); // BeamOn takes int.
   const G4int generatedEventBudget = static_cast<G4int>(budgetLong); // Final generated-event cap for this run.
+
+  // Utility: count how many prepared beam rows are currently available in beam.dat.
+  auto countPreparedBeamRows = [&]() -> G4long {
+    std::ifstream beamCountFile(inTargetFileName, std::ios::in);
+    if (!beamCountFile.is_open()) return 0;
+    G4long count = 0;
+    G4double e = 0., px = 0., py = 0., pz = 0., dx = 0., dy = 0., dz = 0.;
+    while (beamCountFile >> e >> px >> py >> pz >> dx >> dy >> dz) {
+      ++count;
+    }
+    return count;
+  };
+
+  // Utility: append additional prepared beam rows until at least requiredRows exist.
+  auto ensurePreparedRows = [&](G4long requiredRows) -> bool {
+    G4long currentRows = countPreparedBeamRows();
+    if (currentRows >= requiredRows) return true;
+
+    G4cout << "Reaction generator: prepared beam rows " << currentRows
+           << " < required " << requiredRows
+           << ". Generating more beam samples on demand." << G4endl;
+
+    const G4bool savedPrepareBeam = prepareBeam;
+    const G4bool savedSimulateReaction = simulateReaction;
+    const G4bool savedEnforceTarget = enforceS3AcceptedRowTarget;
+    const G4bool savedAbortActive = s3AcceptedRowAbortActive;
+    const G4double savedUserCharge = userCharge;
+
+    prepareBeam = true;                // Reuse existing beam-preparation stepping/writing path.
+    simulateReaction = false;
+    enforceS3AcceptedRowTarget = false;
+    s3AcceptedRowAbortActive = false;
+    userCharge = beamCharge;           // Beam charge for preparation.
+
+    G4long previousRows = currentRows;
+    G4int stagnantPasses = 0;
+    while (currentRows < requiredRows && stagnantPasses < 4) {
+      G4long missingRows = requiredRows - currentRows;
+      G4long batchLong = std::min<G4long>(kBeamTopUpChunkEvents, missingRows);
+      if (batchLong < 1) batchLong = 1;
+      if (batchLong > std::numeric_limits<G4int>::max()) {
+        batchLong = std::numeric_limits<G4int>::max();
+      }
+      G4RunManager::GetRunManager()->BeamOn(static_cast<G4int>(batchLong));
+      currentRows = countPreparedBeamRows();
+      if (currentRows <= previousRows) {
+        ++stagnantPasses; // Guard against infinite loops when preparation produces no new rows.
+      } else {
+        stagnantPasses = 0;
+      }
+      previousRows = currentRows;
+    }
+
+    prepareBeam = savedPrepareBeam;
+    simulateReaction = savedSimulateReaction;
+    enforceS3AcceptedRowTarget = savedEnforceTarget;
+    s3AcceptedRowAbortActive = savedAbortActive;
+    userCharge = savedUserCharge;
+
+    return currentRows >= requiredRows;
+  };
+
+  // Utility: load first requiredRows prepared rows into reaction memory arrays.
+  auto loadPreparedRows = [&](G4int requiredRows) -> bool {
+    if (requiredRows <= 0) return false;
+    delete[] energyBeam; energyBeam = nullptr;
+    delete[] posxBeam; posxBeam = nullptr;
+    delete[] posyBeam; posyBeam = nullptr;
+    delete[] poszBeam; poszBeam = nullptr;
+    delete[] dirxBeam; dirxBeam = nullptr;
+    delete[] diryBeam; diryBeam = nullptr;
+    delete[] dirzBeam; dirzBeam = nullptr;
+
+    energyBeam = new G4double[requiredRows];
+    posxBeam = new G4double[requiredRows];
+    posyBeam = new G4double[requiredRows];
+    poszBeam = new G4double[requiredRows];
+    dirxBeam = new G4double[requiredRows];
+    diryBeam = new G4double[requiredRows];
+    dirzBeam = new G4double[requiredRows];
+
+    std::ifstream beamFile(inTargetFileName, std::ios::in);
+    if (!beamFile.is_open()) return false;
+    for (G4int i = 0; i < requiredRows; ++i) {
+      if (!(beamFile >> energyBeam[i]
+                    >> posxBeam[i]
+                    >> posyBeam[i]
+                    >> poszBeam[i]
+                    >> dirxBeam[i]
+                    >> diryBeam[i]
+                    >> dirzBeam[i])) {
+        return false;
+      }
+    }
+    beamInputRowsLoaded = requiredRows;
+    return true;
+  };
+
   G4cout << "S3 accepted-row mode enabled: targetRows=" << s3AcceptedRowTarget
-         << ", generatedEventBudget=" << generatedEventBudget << G4endl;
-  s3AcceptedRowAbortActive = true; // Enable abort-on-target only for this internal reaction run.
-  G4RunManager::GetRunManager()->BeamOn(generatedEventBudget); // EventAction aborts early when target is reached.
-  s3AcceptedRowAbortActive = false; // Disable abort-on-target for any subsequent manual /run/beamOn.
+         << ", generatedEventBudget=" << generatedEventBudget
+         << ", reactionChunkSize=" << kReactionBeamOnChunkEvents
+         << ", beamTopUpChunkSize=" << kBeamTopUpChunkEvents << G4endl;
+
+  G4int generatedEventsRemaining = generatedEventBudget;
+  while (generatedEventsRemaining > 0 && s3AcceptedRowCount < s3AcceptedRowTarget) {
+    const G4int reactionChunk = std::min(generatedEventsRemaining, kReactionBeamOnChunkEvents);
+    const G4long requiredRows = reactionGeneratedEventCount + reactionChunk;
+    if (requiredRows > std::numeric_limits<G4int>::max()) {
+      std::ostringstream msg;
+      msg << "Requested prepared-row load exceeds G4int capacity: " << requiredRows;
+      G4Exception("EMMAPrimaryGeneratorAction::initializeReactionSimulation", "EMMA0015",
+                  FatalException, msg.str().c_str());
+    }
+
+    if (!ensurePreparedRows(requiredRows)) {
+      std::ostringstream msg;
+      msg << "Unable to prepare enough beam rows on demand. requiredRows=" << requiredRows;
+      G4Exception("EMMAPrimaryGeneratorAction::initializeReactionSimulation", "EMMA0012",
+                  FatalException, msg.str().c_str());
+    }
+    if (requiredRows > beamInputRowsLoaded) {
+      if (!loadPreparedRows(static_cast<G4int>(requiredRows))) {
+        std::ostringstream msg;
+        msg << "Failed to load prepared beam rows from " << inTargetFileName
+            << " up to row " << requiredRows;
+        G4Exception("EMMAPrimaryGeneratorAction::initializeReactionSimulation", "EMMA0013",
+                    FatalException, msg.str().c_str());
+      }
+    }
+
+    const G4long generatedBefore = reactionGeneratedEventCount;
+    s3AcceptedRowAbortActive = true; // Enable abort-on-target only for this internal reaction run.
+    G4RunManager::GetRunManager()->BeamOn(reactionChunk);
+    s3AcceptedRowAbortActive = false; // Disable abort-on-target between chunks and after run completion.
+    const G4long generatedThisChunk = reactionGeneratedEventCount - generatedBefore;
+    if (generatedThisChunk <= 0) {
+      G4cout << "Warning: reaction chunk produced zero generated events; stopping early." << G4endl;
+      break;
+    }
+    if (generatedThisChunk >= generatedEventsRemaining) {
+      generatedEventsRemaining = 0;
+    } else {
+      generatedEventsRemaining -= static_cast<G4int>(generatedThisChunk);
+    }
+  }
+
   if (s3AcceptedRowCount < s3AcceptedRowTarget) { // Notify user if budget exhausted before target accepted rows.
     G4cout << "Warning: accepted S3 rows (" << s3AcceptedRowCount
            << ") below target (" << s3AcceptedRowTarget
@@ -604,6 +750,15 @@ void EMMAPrimaryGeneratorAction::initializeBeamSimulation() // called using /myd
 {
   prepareBeam = false;
   simulateReaction = false;
+  delete[] energyBeam; energyBeam = nullptr;
+  delete[] posxBeam; posxBeam = nullptr;
+  delete[] posyBeam; posyBeam = nullptr;
+  delete[] poszBeam; poszBeam = nullptr;
+  delete[] dirxBeam; dirxBeam = nullptr;
+  delete[] diryBeam; diryBeam = nullptr;
+  delete[] dirzBeam; dirzBeam = nullptr;
+  beamInputRowsLoaded = 0;
+  reactionGeneratedEventCount = 0;
   s3AcceptedRowAbortActive = false; // Ensure manual runs don't inherit abort-on-target behavior.
   enforceS3AcceptedRowTarget = false; // Disable accepted-row stopping logic outside reaction mode.
   s3AcceptedRowTarget = 0;            // Clear target rows when not in reaction mode.
@@ -637,6 +792,15 @@ void EMMAPrimaryGeneratorAction::initializeBeamPreparation() // called using /my
 {
   prepareBeam = true;
   simulateReaction = false;
+  delete[] energyBeam; energyBeam = nullptr;
+  delete[] posxBeam; posxBeam = nullptr;
+  delete[] posyBeam; posyBeam = nullptr;
+  delete[] poszBeam; poszBeam = nullptr;
+  delete[] dirxBeam; dirxBeam = nullptr;
+  delete[] diryBeam; diryBeam = nullptr;
+  delete[] dirzBeam; dirzBeam = nullptr;
+  beamInputRowsLoaded = 0;
+  reactionGeneratedEventCount = 0;
   s3AcceptedRowAbortActive = false; // Ensure manual runs don't inherit abort-on-target behavior.
   enforceS3AcceptedRowTarget = false; // Disable accepted-row stopping logic outside reaction mode.
   s3AcceptedRowTarget = 0;            // Clear target rows when not in reaction mode.

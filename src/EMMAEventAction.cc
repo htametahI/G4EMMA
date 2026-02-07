@@ -63,8 +63,8 @@ namespace {
 // Set these values directly in code (no UI macro control).
 // ------------------------------------------------------------------
 const G4bool kApplyS3PreHitThetaOutputGate = true; // Enable/disable plain-text row filter on pre-S3 theta.
-const G4double kS3PreHitThetaMinDeg = 158.83874018;       // Lower theta bound (deg) for writing S3 rows.
-const G4double kS3PreHitThetaMaxDeg = 160.46334506;       // Upper theta bound (deg) for writing S3 rows.
+const G4double kS3PreHitThetaMinDeg = 131.531771;       // Lower theta bound (deg) for writing S3 rows.
+const G4double kS3PreHitThetaMaxDeg = 132.357455;       // Upper theta bound (deg) for writing S3 rows.
 // const G4double kManualGateMinDeg = 158.83874018; // Manual fallback min theta if ring gate is off.
 // const G4double kManualGateMaxDeg = 160.46334506;
 
@@ -98,7 +98,6 @@ extern G4bool enforceS3AcceptedRowTarget; // Enable/disable stopping run once ac
 extern G4long s3AcceptedRowTarget;        // Requested accepted output-row target.
 extern G4long s3AcceptedRowCount;         // Running accepted output-row count.
 extern G4long s3GlobalEventSerial;        // Monotonic event serial written into output eventID column.
-extern G4bool s3AcceptedRowAbortActive;   // True only during /mydet/doReaction BeamOn.
 
 EMMAEventAction::EMMAEventAction()
   : DHC2ID(-1),                          // Initialize focal-plane HC id.
@@ -359,7 +358,7 @@ void EMMAEventAction::EndOfEventAction(const G4Event* evt)
   }
 #endif // G4ANALYSIS_USE
 
-  if (s3AcceptedRowAbortActive && enforceS3AcceptedRowTarget && s3AcceptedRowTarget > 0 && // Stop generation once target reached (reaction runs only).
+  if (enforceS3AcceptedRowTarget && s3AcceptedRowTarget > 0 &&             // Stop generation once exact accepted-row target has been reached.
       s3AcceptedRowCount >= s3AcceptedRowTarget) {
     G4RunManager::GetRunManager()->AbortRun(true);                         // Abort current BeamOn loop after this event.
   }

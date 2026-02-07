@@ -57,7 +57,7 @@ G4double currentCharge = 0.0; // default value is 0
 
 namespace {
 const G4bool kDebugTritonS3Path = false;    // Temporary diagnostic switch for triton-to-S3 transport.
-const G4double kS3DebugPlaneZ = -35.0*mm;   // Upstream S3 nominal z-plane.
+const G4double kS3DebugPlaneZ = -31.0*mm;   // Upstream S3 nominal z-plane.
 const G4int kMaxS3DebugPrints = 60;          // Protect terminal from unlimited debug output.
 G4int gS3CrossingPrints = 0;                 // Counter for plane-crossing debug lines.
 G4int gS3KilledPrints = 0;                   // Counter for killed-track debug lines.
