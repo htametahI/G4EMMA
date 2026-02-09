@@ -84,7 +84,7 @@ const G4int kS3RingCount = 24;                   // Must match S3 geometry ring 
 const G4double kS3InnerRadius = 11.0 * mm;       // Must match S3 geometry inner radius.
 const G4double kS3OuterRadius = 35.0 * mm;       // Must match S3 geometry outer radius.
 const G4double kS3DistanceFromTarget = 31. * mm; // Must match upstream S3 target distance.
-const G4double kManualGateMinDeg = 130.5; // Manual fallback min theta if ring gate is off.
+const G4double kManualGateMinDeg = 130.0; // Manual fallback min theta if ring gate is off.
 const G4double kManualGateMaxDeg = 133.0; // Manual fallback max theta if ring gate is off.
 const G4int kS3AcceptedRowSamplingBudgetFactor = 200; // Max generated events = factor * requested accepted output rows.
 const G4int kReactionBeamOnChunkEvents = 5000; // Reaction is run in chunks; reduces upfront beam pre-generation.

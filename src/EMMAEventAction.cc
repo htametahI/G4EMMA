@@ -65,6 +65,8 @@ namespace {
 const G4bool kApplyS3PreHitThetaOutputGate = true; // Enable/disable plain-text row filter on pre-S3 theta.
 const G4double kS3PreHitThetaMinDeg = 131.531771;       // Lower theta bound (deg) for writing S3 rows.
 const G4double kS3PreHitThetaMaxDeg = 132.357455;       // Upper theta bound (deg) for writing S3 rows.
+// const G4double kS3PreHitThetaMinDeg = 130.0;       // Lower theta bound (deg) for writing S3 rows.
+// const G4double kS3PreHitThetaMaxDeg = 160.0;       // Upper theta bound (deg) for writing S3 rows.
 // const G4double kManualGateMinDeg = 158.83874018; // Manual fallback min theta if ring gate is off.
 // const G4double kManualGateMaxDeg = 160.46334506;
 
@@ -106,7 +108,7 @@ EMMAEventAction::EMMAEventAction()
     theta(0.0),                          // Initialize focal-plane theta buffer.
     fp_pos{0.0, 0.0},                    // Initialize focal-plane x/y output.
     fp_theta(0.0),                       // Initialize focal-plane theta output.
-    fS3EnergySigmaMeV(0.1),              // Hardcoded Gaussian sigma = 100 keV = 0.1 MeV.
+    fS3EnergySigmaMeV(0.07),              // Hardcoded Gaussian sigma = 100 keV = 0.1 MeV.
     fS3RowsWritten(0),                   // Count rows written to the plain-text S3 file.
     fS3EventsWithHits(0),                // Count events with at least one S3 ring hit.
     fS3MultiHitEvents(0),                // Count events with more than one S3 ring hit.
