@@ -15,8 +15,8 @@
 # Draw geometry:
 /vis/drawVolume
 
-# Make backgour white
-/vis/viewer/set/background white
+# Make backgour black
+/vis/viewer/set/background black
 /vis/viewer/set/defaultColour grey
 
 /vis/viewer/set/lineSegmentsPerCircle 180
@@ -61,7 +61,7 @@
 # Now draw geometry after all optional parameters are set
 /vis/viewer/set/autoRefresh true
 
-#/run/beamOn 1
+#/run/beamOn 10000
 #
 #/mydet/sigmaEnergy 0. 
 #/mydet/sigmaAngle 0.

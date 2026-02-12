@@ -1,0 +1,272 @@
+[
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/EMMAapp.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/EMMAapp.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/EMMAapp.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/EMMAapp.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField1.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField1.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField1.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField1.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField2.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField2.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField2.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField2.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField3.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField3.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField3.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField3.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField4.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField4.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField4.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField4.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField5.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField5.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField5.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField5.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField6.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField6.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField6.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField6.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/BGField7.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/BGField7.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/BGField7.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/BGField7.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMFieldDebugger.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMFieldDebugger.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMFieldDebugger.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMFieldDebugger.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAAnalysisManager.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAAnalysisManager.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAAnalysisManager.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAAnalysisManager.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMADetectorConstMessenger.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMADetectorConstMessenger.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMADetectorConstMessenger.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMADetectorConstMessenger.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMADetectorConstruction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMADetectorConstruction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMADetectorConstruction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMADetectorConstruction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMADriftChamber.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMADriftChamber.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMADriftChamber.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMADriftChamber.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMADriftChamberHit.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMADriftChamberHit.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMADriftChamberHit.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMADriftChamberHit.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAEMPhysics.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAEMPhysics.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAEMPhysics.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAEMPhysics.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAElementField.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAElementField.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAElementField.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAElementField.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAEventAction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAEventAction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAEventAction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAEventActionMessenger.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAEventActionMessenger.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAEventActionMessenger.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAEventActionMessenger.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAGeneralPhysics.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAGeneralPhysics.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAGeneralPhysics.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAGeneralPhysics.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAGlobalField.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAGlobalField.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAGlobalField.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAGlobalField.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAHadronPhysics.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAHadronPhysics.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAHadronPhysics.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAHadronPhysics.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAIonChamber.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonChamber.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonChamber.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAIonChamber.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAIonChamberHit.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonChamberHit.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonChamberHit.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAIonChamberHit.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAIonPhysics.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonPhysics.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonPhysics.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAIonPhysics.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAIonPhysicsMessenger.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonPhysicsMessenger.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAIonPhysicsMessenger.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAIonPhysicsMessenger.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAMuonPhysics.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAMuonPhysics.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAMuonPhysics.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAMuonPhysics.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMANuclearReactionDataSet.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMANuclearReactionDataSet.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMANuclearReactionDataSet.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMANuclearReactionDataSet.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMANuclearReactionProcess.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMANuclearReactionProcess.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMANuclearReactionProcess.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMANuclearReactionProcess.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMANuclearReactionTwoBody.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMANuclearReactionTwoBody.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMANuclearReactionTwoBody.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMANuclearReactionTwoBody.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAPhysicsList.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPhysicsList.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPhysicsList.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAPhysicsList.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorAction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPrimaryGeneratorAction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPrimaryGeneratorAction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorAction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorMessenger.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPrimaryGeneratorMessenger.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAPrimaryGeneratorMessenger.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAPrimaryGeneratorMessenger.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAS3Detector.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAS3Detector.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAS3Detector.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAS3Detector.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMAS3Hit.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMAS3Hit.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMAS3Hit.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMAS3Hit.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMASiliconDetector.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMASiliconDetector.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASiliconDetector.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMASiliconDetector.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMASiliconDetectorHit.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMASiliconDetectorHit.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASiliconDetectorHit.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMASiliconDetectorHit.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMASteppingAction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMASteppingAction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASteppingAction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMASteppingAction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/EMMASteppingVerbose.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/EMMASteppingVerbose.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/EMMASteppingVerbose.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/EMMASteppingVerbose.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/F04StepMax.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/F04StepMax.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/F04StepMax.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/F04StepMax.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/G4LindhardPartition.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/G4LindhardPartition.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/G4LindhardPartition.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/G4LindhardPartition.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/G4ScreenedNuclearRecoil.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/G4ScreenedNuclearRecoil.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/G4ScreenedNuclearRecoil.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/G4ScreenedNuclearRecoil.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/SpectrometerConstruction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/SpectrometerConstruction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/SpectrometerConstruction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/SpectrometerConstruction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/StackingAction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/StackingAction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/StackingAction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/StackingAction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/TrackingAction.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/TrackingAction.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/TrackingAction.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/TrackingAction.cc.o"
+},
+{
+  "directory": "/Users/mikeqiu/GEANT4/G4EMMA/build",
+  "command": "/usr/bin/clang++ -DG4ANALYSIS_USE -DG4LIB_BUILD_DLL -DG4UI_USE_QT -DG4VIS_USE_OPENGLQT -DG4VIS_USE_QT3D -DG4VIS_USE_TOOLSSG_QT_GLES -DG4VIS_USE_TOOLSSG_QT_ZB -DPTL_BUILD_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB -I/Users/mikeqiu/GEANT4/G4EMMA/include -I/opt/homebrew/Cellar/root/6.36.06_1/include/root -isystem /Users/mikeqiu/opt/geant4-11.4.0/include/Geant4 -isystem /Library/Frameworks/Mono.framework/Headers -isystem /opt/homebrew/lib/QtCore.framework/Headers -iframework /opt/homebrew/lib -isystem /opt/homebrew/share/qt/mkspecs/macx-clang -isystem /opt/homebrew/include -isystem /opt/homebrew/lib/QtGui.framework/Headers -isystem /opt/homebrew/lib/QtWidgets.framework/Headers -g -std=gnu++17 -arch arm64 -o CMakeFiles/EMMAapp.dir/src/mitray.cc.o -c /Users/mikeqiu/GEANT4/G4EMMA/src/mitray.cc",
+  "file": "/Users/mikeqiu/GEANT4/G4EMMA/src/mitray.cc",
+  "output": "/Users/mikeqiu/GEANT4/G4EMMA/build/CMakeFiles/EMMAapp.dir/src/mitray.cc.o"
+}
+]
