@@ -510,7 +510,7 @@ G4VPhysicalVolume* EMMADetectorConstruction::Construct()
   G4cout << G4endl << "(Uncomment 'DumpGeometricalTree(worldPhysical)' line in "
     "EMMADetectorConstruction.cc if you don't see the list.)" << G4endl << G4endl;
 //************************** if I forget: uncomment this. Useful output on volumes created
-  //DumpGeometricalTree(worldPhysical);
+  DumpGeometricalTree(worldPhysical);
   
   return worldPhysical;
 

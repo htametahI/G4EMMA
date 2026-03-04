@@ -63,6 +63,7 @@ namespace {
 // Set these values directly in code (no UI macro control).
 // ------------------------------------------------------------------
 const G4bool kApplyS3PreHitThetaOutputGate = true; // Enable/disable plain-text row filter on pre-S3 theta.
+const G4bool kWriteOnlySingleHitS3Events = true;   // If true, plain-text S3 output keeps only events with exactly one S3 ring hit.
 const G4double kS3PreHitThetaMinDeg = 131.531771;       // Lower theta bound (deg) for writing S3 rows.
 const G4double kS3PreHitThetaMaxDeg = 132.357455;       // Upper theta bound (deg) for writing S3 rows.
 // const G4double kS3PreHitThetaMinDeg = 130.0;       // Lower theta bound (deg) for writing S3 rows.
@@ -292,10 +293,15 @@ void EMMAEventAction::EndOfEventAction(const G4Event* evt)
     }
   }
 
-  G4int s3OutputRowsThisEvent = 0;                                        // Number of rows that pass optional pre-S3 theta output gate.
-  for (G4int i = 0; i < s3_nhit; ++i) {                                   // Scan stored S3 hits to count output-eligible rows.
-    if (IsS3PreHitThetaAccepted(s3_theta[i])) {                           // Apply output gate using pre-S3 theta observable.
-      ++s3OutputRowsThisEvent;                                            // Count rows that pass angular output filtering.
+  const G4bool passesS3MultiplicityWriteFilter =                          // Optional event-level multiplicity filter for plain-text S3 rows.
+    (!kWriteOnlySingleHitS3Events) || (s3_nhit == 1);                    // Keep all events, or only exactly-one-ring-hit events.
+
+  G4int s3OutputRowsThisEvent = 0;                                        // Number of rows that pass output filters.
+  if (passesS3MultiplicityWriteFilter) {                                  // Apply optional single-hit requirement before row-level theta gate.
+    for (G4int i = 0; i < s3_nhit; ++i) {                                 // Scan stored S3 hits to count output-eligible rows.
+      if (IsS3PreHitThetaAccepted(s3_theta[i])) {                         // Apply output gate using pre-S3 theta observable.
+        ++s3OutputRowsThisEvent;                                          // Count rows that pass angular output filtering.
+      }
     }
   }
 

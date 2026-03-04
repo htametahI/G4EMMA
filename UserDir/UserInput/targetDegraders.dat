@@ -1,6 +1,6 @@
-# TARGET
+# TARGET LiF volume desity: 2.645g/cm^3 (NIST)
 IN                 # IN/OUT
-6.0661318          # thickness (um)
+1.90               # thickness (um)
 0                  # target z position offset (cm)
 0.8226             # density (g/cm3)
 2                  # number of elements
