@@ -12,46 +12,46 @@
 #ifndef EMMAS3Hit_h
 #define EMMAS3Hit_h 1
 
-#include "G4Allocator.hh"       // Geant4 hit allocator support.
-#include "G4THitsCollection.hh" // Geant4 typed hits collection.
-#include "G4VHit.hh"            // Geant4 base hit class.
-#include "globals.hh"           // Geant4 basic typedefs.
+#include "G4Allocator.hh"       
+#include "G4THitsCollection.hh" 
+#include "G4VHit.hh"            
+#include "globals.hh"           
 
 // This hit stores per-ring triton observables for the upstream S3 detector.
 class EMMAS3Hit : public G4VHit
 {
   public:
-    EMMAS3Hit();                               // Default constructor.
-    EMMAS3Hit(const EMMAS3Hit& right);         // Copy constructor.
-    virtual ~EMMAS3Hit();                      // Destructor.
+    EMMAS3Hit();                               
+    EMMAS3Hit(const EMMAS3Hit& right);        
+    virtual ~EMMAS3Hit();                      
 
-    const EMMAS3Hit& operator=(const EMMAS3Hit& right); // Assignment operator.
-    G4int operator==(const EMMAS3Hit& right) const;     // Equality operator.
+    const EMMAS3Hit& operator=(const EMMAS3Hit& right);
+    G4int operator==(const EMMAS3Hit& right) const;     
 
-    inline void* operator new(size_t);         // Custom allocator new.
-    inline void  operator delete(void* hit);   // Custom allocator delete.
+    inline void* operator new(size_t);        
+    inline void  operator delete(void* hit);   
 
-    virtual void Draw() {}                     // No custom drawing for this hit.
-    virtual void Print();                      // Print helper for debug output.
+    virtual void Draw() {}                     
+    virtual void Print();                      
 
-    void AddEdep(G4double edep);               // Accumulate deposited energy.
-    void SetKinematicsIfUnset(                 // Store entry kinematics once.
+    void AddEdep(G4double edep);               
+    void SetKinematicsIfUnset(                
       G4double kineticEnergy,
       G4double theta,
       G4double phi);
 
-    G4double GetEdep() const;                  // Getter for accumulated energy deposit.
-    G4double GetKineticEnergy() const;         // Getter for entry kinetic energy.
-    G4double GetTheta() const;                 // Getter for entry theta.
-    G4double GetPhi() const;                   // Getter for entry phi.
-    G4bool HasKinematics() const;              // Getter for "kinematics recorded" flag.
+    G4double GetEdep() const;                  
+    G4double GetKineticEnergy() const;         
+    G4double GetTheta() const;                 
+    G4double GetPhi() const;                   
+    G4bool HasKinematics() const;              
 
   private:
-    G4double fEdep;                            // Total energy deposited in this ring.
-    G4double fKineticEnergy;                   // Triton kinetic energy at first hit in this ring.
-    G4double fTheta;                           // Triton polar angle at first hit in this ring.
-    G4double fPhi;                             // Triton azimuthal angle at first hit in this ring.
-    G4bool fHasKinematics;                     // True after first-hit kinematics is stored.
+    G4double fEdep;                           
+    G4double fKineticEnergy;                 
+    G4double fTheta;                           
+    G4double fPhi;                             
+    G4bool fHasKinematics;                   
 };
 
 typedef G4THitsCollection<EMMAS3Hit> EMMAS3HitsCollection; // Event-level collection type.
@@ -80,10 +80,10 @@ inline void EMMAS3Hit::SetKinematicsIfUnset(
   G4double phi)
 {
   if (!fHasKinematics) {     // Only record entry kinematics the first time this ring is hit.
-    fKineticEnergy = kineticEnergy; // Save kinetic energy at ring entry.
-    fTheta = theta;                 // Save theta at ring entry.
-    fPhi = phi;                     // Save phi at ring entry.
-    fHasKinematics = true;          // Mark kinematics as initialized.
+    fKineticEnergy = kineticEnergy; 
+    fTheta = theta;                 
+    fPhi = phi;                     
+    fHasKinematics = true;          
   }
 }
 

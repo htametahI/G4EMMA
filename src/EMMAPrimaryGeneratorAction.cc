@@ -166,10 +166,10 @@ G4double ejectileThetaCM = 0.;
 G4String s3TritonOutputFileName;
 
 // Triton gate controls used in simulateTwoBodyReaction rejection sampling.
-G4bool applyTritonLabAngleGate = kApplyTritonLabAngleGate; // Enable/disable rejection gate here in code.
+G4bool applyTritonLabAngleGate = kApplyTritonLabAngleGate; // Enable/disable rejection gate here
 G4int tritonLabGateRingNumber = kSelectedS3Ring; // 0-based ring selector used to derive angular gate.
-G4double tritonLabAngleMinDeg = kManualGateMinDeg; // Active lower bound (deg), set below.
-G4double tritonLabAngleMaxDeg = kManualGateMaxDeg; // Active upper bound (deg), set below.
+G4double tritonLabAngleMinDeg = kManualGateMinDeg; // lower bound (deg), set below.
+G4double tritonLabAngleMaxDeg = kManualGateMaxDeg; //upper bound (deg), set below.
 
 G4long gateTrialTotal = 0;
 G4long gateAcceptedEvents = 0;
@@ -179,7 +179,7 @@ G4long s3AcceptedRowCount = 0;             // Running count of accepted S3 outpu
 G4long s3GlobalEventSerial = -1;           // Monotonic event serial used as output eventID across possible run restarts.
 G4bool s3AcceptedRowAbortActive = false;   // True only during /mydet/doReaction BeamOn; keeps manual runs from aborting.
 G4int beamInputRowsLoaded = 0;             // Number of prepared beam rows currently loaded in memory.
-G4long reactionGeneratedEventCount = 0;    // Monotonic generated-event index across chunked reaction BeamOn calls.
+G4long reactionGeneratedEventCount = 0;   
 
 EMMAPrimaryGeneratorAction::EMMAPrimaryGeneratorAction()  // constructor
 {
@@ -317,8 +317,8 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
   G4double Ekin;
   G4ParticleDefinition* particleDef;
   tritonExitTargetEnergy = -1.0 * MeV; // Reset per-event; stepping action fills it when triton exits the target.
-  tritonExitTargetTheta = -9999.0 * deg; // Reset per-event triton target-exit theta.
-  tritonExitTargetPhi = -9999.0 * deg;   // Reset per-event triton target-exit phi.
+  tritonExitTargetTheta = -9999.0 * deg; 
+  tritonExitTargetPhi = -9999.0 * deg;   
 
 
   // to simulate just an isotropic alpha source
@@ -472,15 +472,15 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     simulateTwoBodyReaction( Ekin, dir );
 
     // Select which reaction product is tracked as the Geant4 primary.
-    G4int generatedZ = fZ3;                   // Default: recoil (product #3), original behavior.
-    G4int generatedA = fA3;                   // Default: recoil mass number.
-    G4double generatedEx = fExcitationEnergy3; // Default: recoil excitation energy.
+    G4int generatedZ = fZ3;                   // recoil
+    G4int generatedA = fA3;                   
+    G4double generatedEx = fExcitationEnergy3; 
     G4double generatedCharge = userCharge;    // Default: recoil charge state from input file.
     if (kGenerateTritonToS3) {
-      generatedZ = fZ4;                       // Switch to ejectile/triton (product #4).
-      generatedA = fA4;                       // Switch to ejectile mass number.
+      generatedZ = fZ4;                       // ejectile
+      generatedA = fA4;                      
       generatedEx = 0.0;                      // Triton is generated in ground state.
-      generatedCharge = static_cast<G4double>(generatedZ); // Use physical triton charge (+1).
+      generatedCharge = static_cast<G4double>(generatedZ); // Override charge to fully ionized state for triton ejectile, which is what the S3 ring gate is designed for.
     }
 
     particleDef = G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(generatedZ, generatedA, generatedEx);  // Create selected ion.
@@ -496,7 +496,6 @@ void EMMAPrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
     
   }
   
-  // Edit by MQ: guarding against exceptions
   particleGun->GeneratePrimaryVertex(anEvent);
   G4ThreeVector direction = particleGun->GetParticleMomentumDirection();
 
@@ -521,7 +520,9 @@ void EMMAPrimaryGeneratorAction::initializeReactionSimulation() // called using 
 {
   prepareBeam = false;
   simulateReaction = true;
-  enforceS3AcceptedRowTarget = true;   // Option 2: keep generating until we collect requested accepted S3 rows.
+  // This enables us to run the simulation until we collect the specified number of data points 
+  // in beam.dat
+  enforceS3AcceptedRowTarget = true;   // keep generating until we collect requested accepted S3 rows.
   s3AcceptedRowTarget = nEvents;       // Requested number of accepted output rows comes from user-set nEvents.
   s3AcceptedRowCount = 0;              // Reset accepted-row counter at run start.
   s3GlobalEventSerial = -1;            // Reset monotonic global event serial written to output file.

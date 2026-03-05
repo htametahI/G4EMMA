@@ -201,29 +201,29 @@ G4VPhysicalVolume* EMMADetectorConstruction::Construct()
 	targetLogical->SetVisAttributes(DegraderVisAtt);
   }
 
-  //----------------------------------------------------------------------------------------------//
-  // Hardcoded upstream S3 detector definition.
-  //----------------------------------------------------------------------------------------------//
-  const G4bool buildS3Detector = true;                    // Set false here in code if you want to disable S3.
-  const G4int s3RingCount = 24;                           // Number of radial rings in S3.
+ 
+  // --------------------------------- S3 ---------------------------------
+
+  const G4bool buildS3Detector = true;                    
+  const G4int s3RingCount = 24;                           
   const G4double s3InnerRadius = 11.0 * mm;              // Inner active radius of S3 silicon.
   const G4double s3OuterRadius = 35.0 * mm;              // Outer active radius of S3 silicon.
   const G4double s3Thickness = 1.0 * mm;                 // S3 silicon thickness.
   const G4double s3DistanceFromTarget = 31.0 * mm;       // Distance from target center to S3 center (upstream).
   const G4double zS3 = zTarget - s3DistanceFromTarget;   // Upstream z position (negative side of beam axis).
 
-  std::vector<G4LogicalVolume*> s3RingLogicalVolumes;    // Keep ring logical volumes for SD assignment later.
+  std::vector<G4LogicalVolume*> s3RingLogicalVolumes;    
 
-  if (buildS3Detector) {                                  // Build S3 geometry only when enabled above.
+  if (buildS3Detector) {                                 
     const G4double s3RingWidth = (s3OuterRadius - s3InnerRadius) / s3RingCount; // Uniform ring pitch.
 
     for (G4int ringIndex = 0; ringIndex < s3RingCount; ++ringIndex) { // Create one physical annulus per ring.
       const G4double ringInnerRadius = s3InnerRadius + ringIndex * s3RingWidth; // This ring's inner radius.
       const G4double ringOuterRadius = ringInnerRadius + s3RingWidth;            // This ring's outer radius.
 
-      const G4String s3RingSolidName = "S3RingSolid_" + std::to_string(ringIndex); // Unique solid name.
-      const G4String s3RingLogicalName = "S3RingLogical_" + std::to_string(ringIndex); // Unique LV name.
-      const G4String s3RingPhysicalName = "S3RingPhys_" + std::to_string(ringIndex); // Unique PV name.
+      const G4String s3RingSolidName = "S3RingSolid_" + std::to_string(ringIndex);
+      const G4String s3RingLogicalName = "S3RingLogical_" + std::to_string(ringIndex); 
+      const G4String s3RingPhysicalName = "S3RingPhys_" + std::to_string(ringIndex); 
 
       G4VSolid* s3RingSolid = new G4Tubs(                  // Build annular silicon solid for this ring.
         s3RingSolidName,

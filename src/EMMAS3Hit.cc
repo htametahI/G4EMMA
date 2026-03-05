@@ -9,22 +9,22 @@
 // ********************************************************************
 //
 
-#include "EMMAS3Hit.hh"      // Local hit declaration.
+#include "EMMAS3Hit.hh"      
 
-#include "G4UnitsTable.hh"   // G4BestUnit helper.
-#include "G4ios.hh"          // Geant4 stream definitions.
+#include "G4UnitsTable.hh" 
+#include "G4ios.hh"         
 
-#include <iomanip>           // std::setw formatting.
+#include <iomanip>          
 
-G4Allocator<EMMAS3Hit> EMMAS3HitAllocator; // Define Geant4 allocator instance.
+G4Allocator<EMMAS3Hit> EMMAS3HitAllocator; 
 
 EMMAS3Hit::EMMAS3Hit()
-  : G4VHit(),               // Construct base hit.
-    fEdep(0.0),             // Initialize deposited energy accumulator.
-    fKineticEnergy(0.0),    // Initialize kinetic energy storage.
-    fTheta(0.0),            // Initialize theta storage.
-    fPhi(0.0),              // Initialize phi storage.
-    fHasKinematics(false)   // Initialize kinematics flag.
+  : G4VHit(),              
+    fEdep(0.0),             
+    fKineticEnergy(0.0),    
+    fTheta(0.0),          
+    fPhi(0.0),              
+    fHasKinematics(false)  
 {
 }
 
@@ -33,38 +33,38 @@ EMMAS3Hit::~EMMAS3Hit()
 }
 
 EMMAS3Hit::EMMAS3Hit(const EMMAS3Hit& right)
-  : G4VHit()                  // Construct base hit.
+  : G4VHit()                  
 {
-  fEdep = right.fEdep;        // Copy accumulated deposited energy.
-  fKineticEnergy = right.fKineticEnergy; // Copy stored kinetic energy.
-  fTheta = right.fTheta;      // Copy stored theta.
-  fPhi = right.fPhi;          // Copy stored phi.
-  fHasKinematics = right.fHasKinematics; // Copy "kinematics recorded" flag.
+  fEdep = right.fEdep;       
+  fKineticEnergy = right.fKineticEnergy; 
+  fTheta = right.fTheta;      
+  fPhi = right.fPhi;         
+  fHasKinematics = right.fHasKinematics; 
 }
 
 const EMMAS3Hit& EMMAS3Hit::operator=(const EMMAS3Hit& right)
 {
-  if (this != &right) {       // Guard against self-assignment.
-    fEdep = right.fEdep;      // Copy accumulated deposited energy.
-    fKineticEnergy = right.fKineticEnergy; // Copy stored kinetic energy.
-    fTheta = right.fTheta;    // Copy stored theta.
-    fPhi = right.fPhi;        // Copy stored phi.
-    fHasKinematics = right.fHasKinematics; // Copy "kinematics recorded" flag.
+  if (this != &right) {      
+    fEdep = right.fEdep;      
+    fKineticEnergy = right.fKineticEnergy; 
+    fTheta = right.fTheta;    
+    fPhi = right.fPhi;       
+    fHasKinematics = right.fHasKinematics; 
   }
-  return *this;               // Return assigned object reference.
+  return *this;               
 }
 
 G4int EMMAS3Hit::operator==(const EMMAS3Hit& right) const
 {
-  return (this == &right) ? 1 : 0; // Pointer equality semantics, consistent with existing hits.
+  return (this == &right) ? 1 : 0; // Compare hit pointers 
 }
 
 void EMMAS3Hit::Print()
 {
   G4cout
-    << "S3 hit: Edep=" << std::setw(7) << G4BestUnit(fEdep, "Energy") // Print deposited energy.
-    << " Ekin=" << std::setw(7) << G4BestUnit(fKineticEnergy, "Energy") // Print entry kinetic energy.
-    << " theta(rad)=" << fTheta   // Print stored theta in radians.
-    << " phi(rad)=" << fPhi       // Print stored phi in radians.
+    << "S3 hit: Edep=" << std::setw(7) << G4BestUnit(fEdep, "Energy") 
+    << " Ekin=" << std::setw(7) << G4BestUnit(fKineticEnergy, "Energy") 
+    << " theta(rad)=" << fTheta   
+    << " phi(rad)=" << fPhi      
     << G4endl;
 }

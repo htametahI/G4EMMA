@@ -6,6 +6,7 @@
 - [Run](#run)
 - [Input Files](#input-files)
 - [Output Files](#output-files)
+- [Notes](#Notes)
 
 
 
@@ -27,7 +28,7 @@ Simulations are built with:
 
 
 
-## Folder Structer
+## Folder Structure
 
 - `src/`, `include/`: main simulation source code
 - `UserDir/UserInput/`: run input files (`beam.dat`, `reaction.dat`, `centralTrajectory.dat`, etc.)
@@ -41,7 +42,7 @@ Simulations are built with:
 From the repository root:
 
 ```bash
-.EMMAapp
+./EMMAapp
 ```
 
 
@@ -60,5 +61,12 @@ Right now I have configured the Simulation to output .dat data files. Each row o
 e.g. `S3_triton_ring_observables.dat`
 
 The script `check_results.ipynb` implements data plotting and fitting. 
+
+## Notes
+
+In the simulation I am currently killing all tracks before EMMA to save computing time. To disable this, comment out`theTrack->SetTrackStatus(fStopAndKill)` in `EMMASteppingAaction.cc`
+
+Currently the main output data file is: `S3_triton_ring_observables.dat`
+In `Exc.csv`, I've selected a few states for EMMA transmission efficiency calculations. 
 
 

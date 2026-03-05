@@ -12,30 +12,31 @@
 #ifndef EMMAS3Detector_h
 #define EMMAS3Detector_h 1
 
-#include "EMMAS3Hit.hh"          // Upstream S3 hit definition.
-#include "G4VSensitiveDetector.hh" // Geant4 sensitive detector base class.
+#include "EMMAS3Hit.hh"          
+#include "G4VSensitiveDetector.hh" 
 
-class G4HCofThisEvent;           // Forward declaration for Geant4 event hit collection container.
-class G4Step;                    // Forward declaration for Geant4 step type.
-class G4TouchableHistory;        // Forward declaration for Geant4 touchable history.
+class G4HCofThisEvent;           
+class G4Step;                    
+class G4TouchableHistory;        
 
 // Sensitive detector for the upstream S3 annular silicon detector.
 class EMMAS3Detector : public G4VSensitiveDetector
 {
   public:
-    EMMAS3Detector(                    // Constructor.
-      const G4String& name,            // Sensitive detector name.
-      const G4String& hitsCollectionName, // Output hits collection name.
-      G4int nofRings);                 // Number of S3 rings.
-    virtual ~EMMAS3Detector();         // Destructor.
+    EMMAS3Detector(                    
+      const G4String& name,           
+      const G4String& hitsCollectionName, 
+      G4int nofRings);                 
+    virtual ~EMMAS3Detector();       
 
-    virtual void   Initialize(G4HCofThisEvent* hce); // Geant4 per-event hit collection initialization.
-    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history); // Geant4 step callback.
-    virtual void   EndOfEvent(G4HCofThisEvent* hce); // Geant4 end-of-event callback.
+    virtual void   Initialize(G4HCofThisEvent* hce); 
+    virtual G4bool ProcessHits(G4Step* step, G4TouchableHistory* history); 
+    virtual void   EndOfEvent(G4HCofThisEvent* hce); 
 
   private:
-    EMMAS3HitsCollection* fHitsCollection; // Per-event S3 hits collection.
-    G4int fNofRings;                       // Number of physical S3 rings.
+    EMMAS3HitsCollection* fHitsCollection; 
+    G4int fNofRings;                       
+
 };
 
 #endif
